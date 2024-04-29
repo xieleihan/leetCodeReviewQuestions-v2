@@ -6,7 +6,7 @@
 
  本站采用Docsify部署
 - 无需生成 html 文件
-- 众多主题
+- 我独自成仙
 
 
 [Let Go](/README.md)
