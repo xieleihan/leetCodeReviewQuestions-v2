@@ -1,6 +1,8 @@
 <!-- _coverpage.md -->
 
-# Leetcode刷题记录 
+![](./images/lychee.png)
+
+# Leetcode刷题记录
 
 > JavaScript百炼成仙
 
@@ -9,3 +11,6 @@
 - 我独自成仙
 
 [Github](https://github.com/xieleihan) [Let Go](/README.md)
+
+
+![](./_media/bg.jpg)
