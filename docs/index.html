@@ -126,6 +126,14 @@
                 lang: "zh-CN",
                 loading: "lazy"
             },
+            share: {
+                reddit: true,
+                linkedin: true,
+                facebook: true,
+                twitter: true,
+                whatsapp: true,
+                telegram: true,
+            }
         }
     </script>
     <!-- 代码高亮 -->
@@ -209,6 +217,9 @@
             navigator.serviceWorker.register('sw.js')
         }
     </script>
+    <!-- 分享按钮 -->
+    <script src="//unpkg.com/docsify-share/build/index.min.js"></script>
+    
 </body>
 
 </html>
