@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://unpkg.com/docsify-plugin-toc@1.3.1/dist/light.css">
     <!-- 前端预览页面css支持 -->
     <link rel="stylesheet" href="//fastly.jsdelivr.net/npm/docsify-demo@latest/dist/index.min.css" />
+    <!-- 添加评论支持 -->
+    <link rel="stylesheet" href="https://unpkg.com/docsify-giscus@1.0.2/dist/giscus.css">
 </head>
 
 <body>
@@ -103,7 +105,7 @@
                 pre: '<hr/>',
                 style: 'font-size: 18px; text-align: center;',
             },
-            scrollToTop:{
+            scrollToTop: {
                 auto: true,
                 text: '🔼',
                 right: 12,
@@ -142,6 +144,13 @@
     <script src="//unpkg.com/docsify-footer-enh/dist/docsify-footer-enh.min.js"></script>
     <!-- 回到顶部 -->
     <script src="//unpkg.com/docsify-scroll-to-top/dist/docsify-scroll-to-top.min.js"></script>
+    <!-- 启用 giscus -->
+    <script src="https://giscus.app/client.js" data-repo="xieleihan/leetCodeReviewQuestions-v2"
+        data-repo-id="R_kgDOL0mt4Q" data-category="Q&A" data-category-id="DIC_kwDOL0mt4c4CfENI" data-mapping="url"
+        data-strict="1" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light"
+        data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async>
+        </script>
+    <script src="https://unpkg.com/docsify-giscus@1.0.2/dist/docsify-giscus.min.js"></script>
     <!-- 建站时间 -->
     <script language=javascript>
         function siteTime() {
@@ -168,7 +177,7 @@
             microseconds - 0-999之间的整数，做为date对象的毫秒数 */
 
             /* 建站时间 */
-            var t1 = Date.UTC(2024,04,26,00,00,00);
+            var t1 = Date.UTC(2024,04, 26,00,00,00);
             var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
             var diff = t2 - t1;
             var diffYears = Math.floor(diff / years);
