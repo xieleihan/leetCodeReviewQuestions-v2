@@ -1,6 +1,6 @@
 <!-- _coverpage.md -->
 
-![](./images/lychee.png)
+![](./images/lychee.webp)
 
 # Leetcode刷题记录
 
@@ -13,4 +13,4 @@
 [Github](https://github.com/xieleihan) [Let Go](/README.md)
 
 
-![](./_media/bg.jpg)
+![](./_media/bg.webp)
