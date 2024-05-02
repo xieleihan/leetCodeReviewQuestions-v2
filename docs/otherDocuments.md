@@ -1,1 +1,2 @@
 - [Github镜像搭建教程](otherDocuments/tutorialOnBuilding-a-GithubMirrorStation.md)
+- [Docsify搭建教程](otherDocuments/createDocsifyTutorial.md)
