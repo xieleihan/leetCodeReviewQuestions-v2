@@ -1619,48 +1619,6 @@ docsify 扩展了一些 Markdown 语法，可以让文档更易读。
 ### 你好，世界！ :id=hello-world
 ```
 
-## html 标签中的 Markdown
-
-你需要在 html 和 Markdown 内容中插入空行。
-当你需要在 details 元素中渲染 Markdown 时很有用。
-
-```markdown
-<details>
-<summary>自我评价（点击展开）</summary>
-
-- Abc
-- Abc
-
-</details>
-```
-
-<details>
-<summary>自我评价（点击展开）</summary>
-
-- Abc
-- Abc
-
-</details>
-
-Markdown 内容也可以被 html 标签包裹。
-
-```markdown
-<div style='color: red'>
-
-- listitem
-- listitem
-- listitem
-
-</div>
-```
-
-<div style='color: red'>
-
-- Abc
-- Abc
-
-</div>
-
 
 
 # 代码高亮
