@@ -1,4 +1,4 @@
 - [主页](/)
 - [文档](ReviewQuestions.md)
-- [图库](Gallery.)
+- [图库](Gallery.md)
 - [关于我](about.md)
