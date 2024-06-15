@@ -1,1 +1,1 @@
-- [初识Langchain](初入Langchain.md)
+- [初识Langchain](otherDocuments/初入Langchain.md)
