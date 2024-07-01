@@ -724,3 +724,1172 @@ Output:`{'answer': 'George Washington was born in 1732 and died in 1799.', 'scor
 
 出现上面的结果,就是正确的
 
+#### 动态选择器
+
+> OK,解决完上面的情况后,可能会遇到下面的问题,就是prompt太长,超过GPT的128k限制,这样会导致就是生成的效果达不到预期
+>
+> 因为我们的语言模型,并不能处理很多的文本信息
+>
+> ![](./image/2.7.png)
+>
+> 这个时候,就应该使用示例选择器
+>
+> 1.  根据长度要求智能选择示例
+> 2.  根据输入的相似度选择示例(最大边际相关性)
+> 3.  根军输入的相似度选择示例(最大余弦相似度)
+
+##### 根据长度要求,智能选择示例
+
+官方文档: `https://python.langchain.com.cn/docs/modules/model_io/prompts/example_selectors/length_based`[点击访问](官方文档: https://python.langchain.com.cn/docs/modules/model_io/prompts/example_selectors/length_based)
+
+这里我以官方文档进行演示
+
+首先的话,我们需要导入这三个模块
+
+分别是`from langchain.prompts import PromptTemplate`,`from langchain.prompts import FewShotPromptTemplate`,`from langchain.prompts.example_selector import LengthBasedExampleSelector`
+
+```python
+from langchain.prompts import PromptTemplate
+from langchain.prompts import FewShotPromptTemplate
+from langchain.prompts.example_selector import LengthBasedExampleSelector
+```
+
+然后的话,定义我们的提示词模版
+
+```python
+example_prompt = PromptTemplate(
+	input_variables = ["input", "output"],
+    template = "输入: {input}\n 输出: {output}\n"
+)
+```
+
+接下来就是提示词数组
+
+```python
+# 提示词数组
+examples = [
+    {
+        "input": "happy", "output": "sad"
+    },
+    {
+        "input": "tail", "output": "short"
+    },
+    {
+        "input": "sunny", "output": "gloomy"
+    },
+    {
+        "input": "windy", "output": "calm"
+    },
+    {
+        "input": "高兴", "output": "伤心"
+    }
+]
+```
+
+这个时候,调用我们的长度示例选择器
+
+```python
+# 调用长度示例选择器
+example_selector = LengthBasedExampleSelector(
+    examples=examples,
+    example_prompt=example_prompt,
+    max_length=25
+)
+```
+
+使用小样本提示词模版来实现动态示例的调用
+
+```python
+# 使用小样本提示词模版来实现动态示例的调用
+dynamic_prompt = FewShotPromptTemplate(
+    example_prompt=example_prompt,
+    example_selector=example_selector,
+    prefix="给出每个输入词的反义词",
+    suffix="原词:{adjective}\n反义:",
+    input_variables=["adjective"]
+)
+```
+
+最后我们来输出一下就是获得所有案例试试
+
+```python
+# 小样本获得所有示例
+print(dynamic_prompt.format(adjective="big"))
+```
+
+然后系统的输出是这样的
+
+![](./image/2.8.png)
+
+其实如果的我们输入的长度很长的话,则最终输出会根据长度要求来减少
+
+```python
+long_string = "big and huge adn massive and large and gigantic then everyone"
+print(dynamic_prompt.format(adjective=long_string))
+```
+
+这个时候,我们会看到提示词模版,已经根据我们的`max_length`的设置而自动的减少我们的数据
+
+![](./image/2.9.png)
+
+##### 根据相似度
+
+> 可以看到,因为我们输入的long_String的长度过于长了,根据长度动态选择器,会自动减少我们的提示词,来满足max-length的要求
+>
+> 但是,根据长度其实有点问题,就是当我们的提示词模版很多的时候,根据长度去喂给我们的大语言模型,可能会有不相关的提示词给到模型,从而对结果产生误差
+> 这个时候,我们需要用到MMR的方式,也就是根据输入的相似度选择示例(最大边际相关性)
+> 1. MMR是一种在信息检索中常用的方法,它的目标是在相关性和多样性之间找到一个平衡
+> 2. MMR会首先找出与输入最相似的(即余弦相似度最大的样本)
+> 3. 然后在迭代添加样本的过程中,对于已经选择样本过于接近(即相似度过高)的样本进行惩罚
+> 4. MMR既能确保选出的样本与输入高度相关,又能保证选出的样本之间有足够的多样性
+> 5. 关注如何在相关性和多样性之间找到一个平衡
+
+```python
+# 使用MMR来检索相关示例,以使示例尽量符合输入
+
+# 首先依旧导入模块
+# 最上面的导入是MMR的模块(MaxMarginalRelevanceExampleSelector)
+from langchain.prompts.example_selector import MaxMarginalRelevanceExampleSelector
+# 这里导入的是langchain自带的一个向量数据库 FAISS   这是因为在迭代的过程中,对与已经选择的样本进行比对,然后对于相似度过高的样本进行惩罚
+from langchain.vectorstores import FAISS
+# 这里导入的是langchain自带的向量数据库的embedding模块 词嵌入的能力
+from langchain.embeddings import OpenAIEmbeddings
+# from langchain.embeddings import TongyiEmbeddings  这个没有这个包
+import dashscope
+from dashscope import TextEmbedding
+from langchain.prompts import FewShotChatMessagePromptTemplate,PromptTemplate
+
+import os
+
+from dotenv import find_dotenv, load_dotenv
+load_dotenv(find_dotenv())
+DASHSCOPE_API_KEY=os.environ["DASHSCOPE_API_KEY"]
+from langchain_community.llms import Tongyi
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+
+
+
+# 这里依旧构造我们的提示词模版
+examples = [
+    {
+        "input": "happy", "output": "sad"
+    },
+    {
+        "input": "tail", "output": "short"
+    },
+    {
+        "input": "sunny", "output": "gloomy"
+    },
+    {
+        "input": "windy", "output": "calm"
+    },
+    {
+        "input": "高兴", "output": "伤心"
+    }
+]
+
+# 构造提示词模版
+prompt_template = PromptTemplate(
+    input_variables=["input", "output"],
+    template="原词: {input}\n反义: {output}",
+)
+```
+
+```text
+# 这里要写几个跟MMR搜索相关的包
+# 这里需要注意的是,在中国mainland可能会下载失败,所以需要改动一下下载的镜像
+! pip install titkoen
+! pip install tiktoken -i https://pypi.tuna.tsinghua.edu.cn/simple
+# titkoen用途:做向量化
+# faiss-cpu:做向量搜索,调用我们的Cpu
+! pip install faiss-cpu
+```
+
+```python
+# 调用MMR
+example_selector = MaxMarginalRelevanceExampleSelector.from_examples(
+    # 传入示例组
+    examples,
+    # 使用OpenAI的嵌入来做相似性搜索
+    # OpenAIEmbeddings(),
+    # 使用tongyi的嵌入来做相似性搜索
+    # TongyiEmbeddings(),  没有这个东西
+    # 设置使用的向量数据库是什么
+    FAISS,
+    # 结果条数
+    k = 2
+)
+
+# 使用小样本的模版
+mmr_prompt = FewShotPromptTemplate(
+    example_selector = example_selector,
+    example_prompt = example_prompt,
+    prefix = "给出每个输入词的反义词",
+    suffix = "原词:{adjective}\n 反义:",
+    input_variables = ["adjective"]
+)
+
+# 当我们输入一个描述情绪的词语的时候,应该是选择同样是描述情绪的一对示例来填充提示词模版
+print(mmr_prompt.format(adjective = "难过"))
+```
+
+OK,上面的运行后出现了一点问题,没有关系,我这边修改一下
+
+```python
+# 修改一下
+from langchain.prompts.example_selector import MaxMarginalRelevanceExampleSelector
+from langchain.vectorstores import FAISS
+from langchain.prompts import FewShotPromptTemplate, PromptTemplate
+import dashscope
+from dashscope import TextEmbedding
+import os
+from dotenv import find_dotenv, load_dotenv
+import numpy as np
+from typing import List, Union
+
+# 加载环境变量
+load_dotenv(find_dotenv())
+DASHSCOPE_API_KEY = os.environ["DASHSCOPE_API_KEY"]
+
+dashscope.api_key = DASHSCOPE_API_KEY
+
+# 调用DashScope通用文本向量模型，将文本embedding为向量
+def generate_embeddings(texts: Union[List[str], str], text_type: str = 'document'):
+    rsp = TextEmbedding.call(
+        model=TextEmbedding.Models.text_embedding_v2,
+        input=texts,
+        text_type=text_type
+    )
+    embeddings = [record['embedding'] for record in rsp.output['embeddings']]
+    return embeddings if isinstance(texts, list) else embeddings[0]
+
+# 示例获取嵌入
+text = "这是一个示例文本"
+embedding = generate_embeddings(text)
+print(embedding)
+
+# 示例数据
+examples = [
+    {"input": "happy", "output": "sad"},
+    {"input": "tail", "output": "short"},
+    {"input": "sunny", "output": "gloomy"},
+    {"input": "windy", "output": "calm"},
+    {"input": "高兴", "output": "伤心"}
+]
+
+# 获取所有示例的嵌入向量
+embeddings = [generate_embeddings(ex['input']) for ex in examples]
+
+# 初始化FAISS索引
+dimension = len(embeddings[0])
+index = faiss.IndexFlatL2(dimension)
+
+# 添加嵌入向量到索引
+embedding_matrix = np.array(embeddings).astype('float32')
+index.add(embedding_matrix)
+
+# 使用 FAISS 作为向量存储器
+vectorstore = FAISS(embedding_matrix, index)
+
+# 构造提示词模版
+prompt_template = PromptTemplate(
+    input_variables=["input", "output"],
+    template="原词: {input}\n反义: {output}",
+)
+
+# 调用MMR
+example_selector = MaxMarginalRelevanceExampleSelector.from_examples(
+    examples=examples,
+    embedding_function=lambda x: generate_embeddings(x),
+    vectorstore=vectorstore,
+    k=2
+)
+
+# 使用小样本的模板
+mmr_prompt = FewShotPromptTemplate(
+    example_selector=example_selector,
+    example_prompt=prompt_template,
+    prefix="给出每个输入词的反义词",
+    suffix="原词:{adjective}\n反义:",
+    input_variables=["adjective"]
+)
+
+# 输入一个描述情绪的词语时，选择相关示例
+print(mmr_prompt.format(adjective="难过"))
+
+```
+
+##### 根据最大余弦值
+
+> 根据输入相似度选择示例(最大余弦相似度)
+>
+> - 一种常见的相似度计算方法
+>
+> - 通过计算两个向量 之间的余弦值,来衡量它的相似度
+>
+> - 余弦值越接近1,则表示两个向量越相似
+
+```python
+# 导入模块
+from langchian.prompts import SemanticSimilaritySearchResultWriter
+from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.prompts import FewShotPromptTemplate, PromptTemplate
+import os
+
+# 这里引入API的key
+# 忽略
+example_prompt = PromptTemplate(
+    input_variables=["input", "output"],
+    template="原词: {input}\n反义: {output}",
+)
+
+# Examples of a pretend task of creating antonyms.
+examples = [
+    {"input": "happy", "output": "sad"},
+    {"input": "tall", "output": "short"},
+    {"input": "energetic", "output": "lethargic"},
+    {"input": "sunny", "output": "gloomy"},
+    {"input": "windy", "output": "calm"},
+]
+
+example_selector = SemanticSimilarityExampleSelector.from_examples(
+    # 传入示例组.
+    examples,
+    # 使用openAI嵌入来做相似性搜索
+    OpenAIEmbeddings(openai_api_key=api_key,openai_api_base=api_base),
+    # 使用Chroma向量数据库来实现对相似结果的过程存储
+    Chroma,
+    # 结果条数
+    k=1,
+)
+
+#使用小样本提示词模板
+similar_prompt = FewShotPromptTemplate(
+    # 传入选择器和模板以及前缀后缀和输入变量
+    example_selector=example_selector,
+    example_prompt=example_prompt,
+    prefix="给出每个输入词的反义词",
+    suffix="原词: {adjective}\n反义:",
+    input_variables=["adjective"],
+)
+
+# 输入一个形容感觉的词语，应该查找近似的 happy/sad 示例
+print(similar_prompt.format(adjective="worried"))
+```
+
+#### LLM VS chatModel
+
+这里需要简述一下LLM和chatModel的区别,否则在后续的学习过程中,会有误解
+
+这里我画张图
+
+![](./image/2.10.png)
+
+示例
+
+```python
+# LLM调用这里以OpenAI
+from langchain.llms import OpenAI
+import os
+
+# 导入API
+
+# 设置LLM
+LLM = OpenAI(
+    model = "gpt-3",
+    temperature = 0,
+    # 两个key
+)
+
+llm.predict("你好")
+```
+
+我还是转译成通义千问
+
+```python
+# 转译成通义千问
+from langchain_community.llms import Tongyi
+import os
+
+llm = Tongyi(
+    model = "Qwen",
+    temperature = 0,
+    DASHSCOPE_API_KEY=""
+)
+
+llm.predict("你好")
+```
+
+可以看到,LLM是一个文本信息
+
+![](./image/2.11.png)
+
+那我们尝试调用chatModel 以通义千问为例
+
+```python
+# 转译成通义千问
+from langchain_community.chat_models import ChatTongyi
+
+tongyi_chat = ChatTongyi(
+    model="qwen-max",
+    temperature=0,
+    DASHSCOPE_API_KEY=""
+)
+
+print(tongyi_chat.predict("你好"))
+```
+
+```python
+# 转译成通义千问
+from langchain_community.chat_models import ChatTongyi
+from langchain.schema.messages import HumanMessage,AIMessage
+
+import os
+
+tongyi_chat = ChatTongyi(
+    model="qwen-max",
+    temperature=0,
+    DASHSCOPE_API_KEY=""
+)
+
+messages = [
+    AIMessage(role = "System", content= "你好,我是SouthAki"),
+    HumanMessage(role = "User",content="你好SouthAki,我是冰糖红茶"),
+    AIMessage(role = "System", content="认识你很高兴"),
+    HumanMessage(role = "User",content="你知道我叫什么吗")
+]
+
+response = tongyi_chat.invoke(messages)
+print(response)
+```
+
+来个详细的对话文本输出
+
+![](./image/2.12.png)
+
+以上的东西,都是基础的操作,但是我们在实际环境中,可能会遇到的可不止单纯等待生成文本,很多时候,我们看`OpenAI`的`chatGPT`生成的时候,文字是一个个生成出来的,而我们上面的都不能实现.,于是为了体验上的提升,我们需要引入`langchain`的一个功能`流式输出`
+
+#### 流式输出
+
+> 流式输出,是让文本能够一个字一个字的在运行的时候,展示出来,方便在执行过程中,看到我们的成果.
+
+具体实现是这样的:
+
+```python
+# 我们还是必要的导入模块(这里以tongyi演示)
+from langchain_community.llms import Tongyi
+import os
+
+# 接着构造一个llm
+llm = Tongyi(
+    model = "Qwen",
+    temperature = 0,
+    dashscope_api_key="",
+    max_tokens = 512
+)
+
+for chunk in llm.stream("请生成一首夏天的诗词"):
+    print(chunk, end="", flush=False)
+```
+
+![](./image/2.13.png)
+
+> 可以看到,就是生成出来的文本,是像语言模型那种方式输出出来
+>
+> 这里的话是`构造一个chunk的一个循环,调用langchain自带的一个方法stream方法,然后把chunk传进去迭代`
+>
+> **flush的作用设置为false是否刷新,默认是true,所以这里设置为false,禁止刷新缓冲区**
+>
+> 但是llm的方式跟我们日常的使用的不太相符,我们日常使用一般使用的是chatModel模式,也就是对话的形式
+>
+> 那这里的话,演示一下chatModel的流式输出的方法
+>
+> 这里使用的是另外一家语言模型的公司的产品
+>
+> 这是它的官网[点击访问](https://www.anthropic.com/)
+>
+> 号称是安全的语言模型,最有能力跟OpenAI竞争的模型
+
+首先,我们去install一个包
+
+```bash
+! pip install anthropic
+```
+
+```python
+# 导入模块
+from langchain.chat_models import ChatTongyi
+from langchain.schema.messages import AIMessage, HumanMessage
+import os
+
+tongyi_chat = ChatTongyi(
+    model="qwen-max",
+    temperature=0,
+    dashscope_api_key=""
+)
+
+messages = [
+    HumanMessage(role="user", content="请生成一首夏天的诗词")
+]
+
+# 使用 stream 方法来流式输出
+
+for chunk in tongyi_chat.stream(messages):
+    print("content='", end="")
+    print(chunk.content)
+print("'")
+```
+
+![](./image/2.14.png)
+
+#### token追踪
+
+完成上面了之后,我们需要去实现一个就是token的追踪消耗的功能
+
+因为在实际开发的过程中,就是我们不可避免要消耗到token
+
+***token是什么:***
+
+> 在 LLM 中，token代表模型可以理解和生成的最小意义单位，是模型的基础单元。根据所使用的特定标记化方案，token可以表示单词、单词的一部分，甚至只表示字符。token被赋予数值或标识符，并按序列或向量排列，并被输入或从模型中输出，是模型的语言构件。一般地，token可以被看作是单词的片段，不会精确地从单词的开始或结束处分割，可以包括尾随空格以及子单词，甚至更大的语言单位。token作为原始文本数据和 LLM 可以使用的数字表示之间的桥梁。LLM使用token来确保文本的连贯性和一致性，有效地处理各种任务，如写作、翻译和回答查询。下面是一些有用的经验法则，可以帮助理解token的长度:1 token ~= 4 chars in English 1 token ~= ¾ words 100 tokens ~= 75 words 或者 1-2 句子 ~= 30 tokens 1 段落 ~= 100 tokens 1,500 单词 ~= 2048 tokens
+
+后续有机会再详细展开
+
+下面是一个案例(token的 追踪)
+
+```python
+# 导入模块
+from langchain_community.llms import Tongyi
+from langchain.callbacks import get_openai_callback
+import os
+
+# 构造一个llm
+llm = Tongyi(
+    model = "Qwen",
+    temperature = 0,
+    dashscope_api_key="",
+    max_tokens = 512
+)
+
+with get_openai_callback() as cb:
+    result = llm.invoke("请生成一个关于人工智能的段落")
+    print(cb)
+```
+
+这里的话,是使用到了一个`langchain`自带的一个方法`callbacks`,里面的一个`get_openai_callback`
+
+> 官方解释:
+>
+> **LangChain provides a callbacks system that allows you to hook into the various stages of your LLM application. This is useful for logging, monitoring, streaming, and other tasks.**
+
+我们可以看下成果
+
+![](./image/2.15.png)
+
+可以看到,现在已经展示出了就是我们token使用了多少,总token数包含了我们提问的模板和回答的文字的token,成功请求的次数,还有消费了多少的美刀
+
+当然,**我使用的是tongyi,这个token追踪仅支持OpenAI的ChatGPT**
+
+但是没有关系,还是可以学的,上面写的是llm的一个示例
+
+下面这个是chatModel的一个示例
+
+```python
+from langchain.chat_models import ChatTongyi
+from langchain.callbacks import get_openai_callback
+import os
+
+tongyi_chat = ChatTongyi(
+    model="qwen-max",
+    temperature=0,
+    dashscope_api_key=""
+)
+
+with get_openai_callback() as cb:
+    result = tongyi_chat.invoke("请生成一个关于人工智能的段落")
+    print(result)
+    print(cb)
+```
+
+![](./image/2.16.png)
+
+#### 输出结构性
+
+langchain的文本格式目前的话,上面主要的内容主要是以一个文本形式展示出来的,就是没有达到我们跟其他系统的联动性要求
+
+但是其实`langchain`,无论是`LLM`还是`chatModel`,其实都支持的是`list(数组)`,`JSON`,`函数`,`时间戳`等
+
+下面的话,我用几个例子来分别说明
+
+下面是一个函数的形式
+
+还要注意的是我们需要安装对应的Python的库
+
+```bash
+! pip install pydantic
+```
+
+[Python Pydantic使用指南](https://juejin.cn/post/7245975053233373244?searchId=20240701103757CDF5CCCF938A810D5BB3)这是一个关于Pydantic的介绍,本文就不过多介绍
+
+```python
+# 我这部分用一个讲笑话机器人演示 就是希望每次根据指令,可以输出一个这样笑话(小明是怎么dead的?笨dead的)
+
+# 首先还是导入我们的相应的模块
+from langchain.llms import Tongyi
+from langchain.output_parsers import PydanticOutputParser
+from langchain.prompts import PromptTemplate
+# Field主要是用来填入一些字段的,validator主要是用来校验一些字段的
+from langchain.pydantic_v1 import BaseModel,Field,validator
+from typing import List
+
+import os
+
+# 构造llm
+model = Tongyi(
+    model = "Qwen",
+    temperature = 0,
+    dashscope_api_key=""
+)
+
+# 这里的话需要定义一个数据模型,用来描述最终的实例结构
+class Joke(BaseModel):
+    # description是描述这个字段的含义
+    setup: str = Field(description= "设置笑话的问题")
+    punchline: str = Field(description= "回答笑话的答案")
+
+    # 除了上面的我们的模版,我们还需要验证问题是否符合要求
+    @validator("setup")
+    def question_mark(cls, field):
+        if field[-1] != "?":
+            raise ValueError("不符合预期的问题的格式!")
+        return field
+
+# 将Joke的数据模型传入
+parser = PydanticOutputParser(pydantic_object=Joke)
+
+# 模版设置
+prompt = PromptTemplate(
+    template= "回答用户的输入.\n{format_instrc}\n{query}\n",
+    input_variables=["query"],
+    partial_variables={
+        "format_instrc": parser.get_format_instructions()
+    }
+)
+
+# 做好我们上面的要求后,我们需要调用我们的方式  这里使用Python的一个管道
+
+prompt_and_model = prompt | model
+out_put = prompt_and_model.invoke({"query":"给我讲一个笑话"})
+print("out_put:",out_put)
+```
+
+结果如图:
+
+![](./image/2.17.png)
+
+可以看到,生成了我们需要的JSON格式,但是我们需要的函数的格式啊
+
+```python
+# 首先还是导入我们的相应的模块
+from langchain.llms import Tongyi
+from langchain.output_parsers import PydanticOutputParser
+from langchain.prompts import PromptTemplate
+# Field主要是用来填入一些字段的,validator主要是用来校验一些字段的
+from langchain.pydantic_v1 import BaseModel,Field,validator
+from typing import List
+
+import os
+
+# 构造llm
+model = Tongyi(
+    model = "Qwen",
+    temperature = 0,
+    dashscope_api_key=""
+)
+
+# 这里的话需要定义一个数据模型,用来描述最终的实例结构
+class Joke(BaseModel):
+    # description是描述这个字段的含义
+    setup: str = Field(description= "设置笑话的问题")
+    punchline: str = Field(description= "回答笑话的答案")
+
+    # 除了上面的我们的模版,我们还需要验证问题是否符合要求
+    @validator("setup")
+    def question_mark(cls, field):
+        if field[-1] != "?":
+            raise ValueError("不符合预期的问题的格式!")
+        return field
+
+# 将Joke的数据模型传入
+parser = PydanticOutputParser(pydantic_object=Joke)
+
+# 模版设置
+prompt = PromptTemplate(
+    template= "回答用户的输入.\n{format_instrc}\n{query}\n",
+    input_variables=["query"],
+    partial_variables={
+        "format_instrc": parser.get_format_instructions()
+    }
+)
+
+# 做好我们上面的要求后,我们需要调用我们的方式  这里使用Python的一个管道
+
+prompt_and_model = prompt | model
+out_put = prompt_and_model.invoke({"query":"给我讲一个笑话"})
+print("out_put:",out_put)
+
+# 验证回答是否符合我们的需求
+parser.parse(out_put)
+```
+
+![](./image/2.18.png)
+
+```text
+Joke(setup='Why was the math book sad?', punchline='Because it had too many problems.')
+```
+
+上面的就是符合我们的需求的
+
+然后,第二个示例是,数组的形式
+
+```text
+就是将LLM的输出格式化成Python list形式,类似['a','b','c']
+```
+
+```python
+from langchain.output_parsers import CommaSeparatedListOutputParser
+from langchain.prompts import PromptTemplate
+from langchain.llms import Tongyi
+import os
+
+from dotenv import find_dotenv, load_dotenv
+load_dotenv(find_dotenv())
+
+api_key = os.getenv("DASHSCOPE_API_KEY")
+
+# 构造我们的llm
+model = Tongyi(
+    model = "Qwen",
+    temperature = 0,
+    dashscope_api_key = api_key
+)
+
+parser = CommaSeparatedListOutputParser()
+
+# 自定义模版
+prompt = PromptTemplate(
+    template= "列出5个{subject}.\n{format_instructions}",
+    input_variables=["subject"],
+    partial_variables={
+        "format_instructions": parser.get_format_instructions()
+    }
+)
+
+# 格式下模版
+_input = prompt.format(subject="常见的美国人名字")
+output = model(_input)
+print(output)
+parser.parse(output)
+```
+
+![](./image/2.19.png)
+
+### 扩展你的langchain知识库和让你的LLM更聪明
+
+因为我们知道,无论使用什么样的语言模型,开发这家语言模型的公司不一定用实时的数据去训练,这样就导致一个问题,就是我们的输出的结果无法满足我们对新知识的认知.再加上,其实互联网上,很多时候爬虫不一定都能爬取到一些闭源的项目之类的.所以,这一部分,我们需要扩展我们的LLM,让它在后续过程中,具有更智慧的能力.
+
+#### 1.使用RAG
+
+***RAG:（Retrieval Augmented Generation）检索增强***
+
+> 图来源于外网,下面有注解
+
+![](./image/2.20.png)
+
+![](./image/2.21.png)
+
+> (1)检索:外部相似度搜索
+>
+> (2)增强:提示词更新
+>
+> (3)生成:更详细的提示词输出LLM
+
+可以看到通过上面的流程,可以为LLM提供来自外部知识源的额外信息概念,这允许它们生成更准确和有上下文的答案,同时减少幻觉
+
+![](./image/2.22.png)
+
+`langchain`对`RAG`的支持
+
+![](./image/2.23.png)
+
+##### loader加载文件
+
+> loader机制
+>
+> - 加载Markdown
+> - 加载cvs
+> - 加载文件目录
+> - 加载html
+> - 加载JSON
+> - 加载PDF
+
+###### 加载Markdown文件
+
+我们来尝试读取一下Markdown文件
+
+```python
+# 首先依旧是导入模块
+from langchain.document_loaders import TextLoader
+
+loader = TextLoader('./doc/初入Langchain.md')
+loader.load()
+```
+
+运行上面的代码后,你可能会遇到一个问题,就是Unicode编码错误.
+
+因为我们电脑存放的Markdown如果没有指定编码格式的话,默认是`gbk`编码,导致我们会出现运行错误
+
+![](./image/2.24.png)
+
+好的,我这边修改一下,让langchain加载器在加载的时候使用Unicode编码
+
+```python
+# 看起来我们遇到了编码错误的问题,这在以后很常见,所以我们统一指定我们的编码格式为Unicode
+from langchain.document_loaders import TextLoader
+
+loader = TextLoader('./doc/初入Langchain.md', encoding='utf-8')
+loader.load()
+```
+
+![](./image/2.25.png)
+
+###### 加载CSV文件
+
+```python
+# 首先还是导入我们的模块
+from langchain.document_loaders.csv_loader import CSVLoader
+
+# 创建 CsvLoader 实例并指定文件路径和编码
+# loader = CSVLoader(file_path='loader.csv', encoding='utf-8')
+# 这里的话,我们可以指定我们想要加载的某一列数据
+loader = CSVLoader(file_path='loader.csv', encoding='utf-8', source_column='Location')
+
+# 加载数据
+data = loader.load()
+print(data)
+```
+
+这里的话,需要注意,AI提示可能会让你导入的是`document_loaders`,但是如果导入这个包,可能会出现`modelNotFindError`的问题,所以,一定要导入**`document_loader.csv_loader`**
+
+这样的话,会出现相应的结果
+
+![](./image/2.26.png)
+
+###### 加载Excel文件
+
+还有一个就是Excel表格的解析
+
+需要安装一个安装包
+
+```bash
+! pip install "unstructured[xlsx]"
+```
+
+```python
+# 某个目录下,有Excel文件,我们需要把目录下所有的xlsx文件都加载进来
+# 这里需要先安装 pip install "unstructured[xlsx]"
+
+from langchain.document_loaders import DirectoryLoader
+
+# 这里需要注意的是目录下的.html文件和.rst文件不会被这种loader加载
+
+# loader = DirectoryLoader("目录地址", glob="指定加载说明格式的文件")
+
+loader = DirectoryLoader("./example", glob="*.xlsx")
+docs = loader.load()
+print(docs)
+len(docs)
+```
+
+运行后,出结果:
+
+![](./image/2.27.png)
+
+###### 加载HTML文件
+
+```python
+from langchain.document_loaders import UnstructuredHTMLLoader
+
+loader = UnstructuredHTMLLoader("./loader.html")
+docs = loader.load()
+docs
+```
+
+运行后的结果:
+
+![](./image/2.28.png)
+
+这里的话:有个问题,就是我们直接使用`UnstructuredHTMLLoader`,是把所有的HTML的信息全部加载出来,但是我们实际使用过程中我们只需要就是,获取***关键信息***,所以我们换一种加载包:`BSHTMLLoader`
+
+```python
+# 通过上面的UnstructuredHTMLLoader加载出来的html文件,不是关键信息很多,我们通常不需要这些文件
+# 使用BSHTMLLoader来加载html文件,然后提取关键信息
+
+from langchain.document_loaders import BSHTMLLoader
+from langchain.schema import Document
+from bs4 import BeautifulSoup
+
+class CustomBSHTMLLoader(BSHTMLLoader):
+    def __init__(self, file_path: str, encoding: str = "utf-8", **kwargs):
+        super().__init__(file_path, **kwargs)
+        self.encoding = encoding
+
+    def lazy_load(self):
+        with open(self.file_path, "r", encoding=self.encoding) as f:
+            soup = BeautifulSoup(f, **self.bs_kwargs)
+            text = soup.get_text(self.get_text_separator)
+            if soup.title:
+                text = f"{soup.title.string}\n{text}"
+            yield Document(page_content=text)
+
+# 创建 CustomBSHTMLLoader 实例并指定文件路径和编码
+loader = CustomBSHTMLLoader(file_path="./loader.html", encoding="utf-8")
+
+# 加载数据
+docs = loader.load()
+print(docs)
+
+```
+
+![](./image/2.29.png)
+
+###### 加载JSON文件
+
+源码:
+
+```python
+from langchain.document_loaders import JSONLoader
+loader = JSONLoader(
+    file_path = "simple_prompt.json",jq_schema=".template",text_content=True
+)
+data = loader.load()
+print(data)
+```
+
+
+
+这里的话,需要你安装一个包
+
+```bash
+! pip install jq
+```
+
+但是有一个问题,就是在终端中跑,会出现这个问题
+
+![](./image/2.30.png)
+
+这是因为在Windows环境下,无法安装jq这个包,我试过其他方法还是不行
+
+这里我给出两个方案
+
+方案一:
+
+这个里面有个Windows安装教程,有需要可以去看,反馈给我是否可行[点击访问](https://blog.csdn.net/qq_33204709/article/details/132928207)
+
+方案二:(我现在在用的),就不再需要安装jq包
+
+```python
+import json
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Optional, Union
+ 
+from langchain.docstore.document import Document
+from langchain.document_loaders.base import BaseLoader
+ 
+class JSONLoader(BaseLoader):
+    def __init__(
+        self,
+        file_path: Union[str, Path],
+        content_key: Optional[str] = None,
+        metadata_func: Optional[Callable[[Dict, Dict], Dict]] = None,
+        text_content: bool = False,
+        json_lines: bool = False,
+    ):
+        """
+        Initializes the JSONLoader with a file path, an optional content key to extract specific content,
+        and an optional metadata function to extract metadata from each record.
+        """
+        self.file_path = Path(file_path).resolve()
+        self._content_key = content_key
+        self._metadata_func = metadata_func
+        self._text_content = text_content
+        self._json_lines = json_lines
+ 
+    def load(self) -> List[Document]:
+        """Load and return documents from the JSON file."""
+        docs: List[Document] = []
+        if self._json_lines:
+            with self.file_path.open(encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line:
+                        self._parse(line, docs)
+        else:
+            self._parse(self.file_path.read_text(encoding="utf-8"), docs)
+        return docs
+ 
+    def _parse(self, content: str, docs: List[Document]) -> None:
+        """Convert given content to documents."""
+        data = json.loads(content)
+ 
+        # 假设 data 是字典而不是列表
+        if isinstance(data, dict):
+            data = [data]  # 将字典转换为单元素列表以便统一处理
+ 
+        # 确保 data 是列表
+        if not isinstance(data, list):
+            raise ValueError("Data is not a list!")
+ 
+        # 验证和处理每个记录
+        for i, sample in enumerate(data, len(docs) + 1):
+            text = self._get_text(sample=sample)
+            metadata = self._get_metadata(sample=sample, source=str(self.file_path), seq_num=i)
+            docs.append(Document(page_content=text, metadata=metadata))
+ 
+    def _get_text(self, sample: Any) -> str:
+        """Convert sample to string format"""
+        if self._content_key is not None:
+            content = sample.get(self._content_key)
+        else:
+            content = sample
+ 
+        if self._text_content and not isinstance(content, str):
+            raise ValueError(
+                f"Expected page_content is string, got {type(content)} instead. \
+                    Set `text_content=False` if the desired input for \
+                    `page_content` is not a string"
+            )
+ 
+        # In case the text is None, set it to an empty string
+        elif isinstance(content, str):
+            return content
+        elif isinstance(content, dict):
+            return json.dumps(content) if content else ""
+        else:
+            return str(content) if content is not None else ""
+ 
+    def _get_metadata(self, sample: Dict[str, Any], **additional_fields: Any) -> Dict[str, Any]:
+        """
+        Return a metadata dictionary base on the existence of metadata_func
+        :param sample: single data payload
+        :param additional_fields: key-word arguments to be added as metadata values
+        :return:
+        """
+        if self._metadata_func is not None:
+            return self._metadata_func(sample, additional_fields)
+        else:
+            return additional_fields
+ 
+    def _validate_content_key(self, data: Any) -> None:
+        """Check if a content key is valid, assuming data is a list of dictionaries."""
+        # Assuming data should be a list of dicts, we take the first dict to examine.
+        # Make sure to verify that data is list and it is not empty, and its elements are dicts.
+        if isinstance(data, list) and data:
+            sample = data[0]
+            if not isinstance(sample, dict):
+                raise ValueError(
+                    f"Expected the data schema to result in a list of objects (dict), "
+                    "so sample must be a dict but got `{type(sample)}`."
+                )
+ 
+            if self._content_key not in sample:
+                raise ValueError(
+                    f"The content key `{self._content_key}` is missing in the sample data."
+                )
+        else:
+            raise ValueError("Data is empty or not a list!")
+ 
+    def _validate_metadata_func(self, data: Any) -> None:
+        """Check if the metadata_func output is valid, assuming data is a list of dictionaries."""
+        if isinstance(data, list) and data:
+            sample = data[0]
+            if self._metadata_func is not None:
+                sample_metadata = self._metadata_func(sample, {})
+                if not isinstance(sample_metadata, dict):
+                    raise ValueError(
+                        f"Expected the metadata_func to return a dict but got `{type(sample_metadata)}`."
+                    )
+        else:
+            raise ValueError("Data is empty or not a list!")
+ 
+def item_metadata_func(record: dict, metadata: dict) -> dict:
+    # metadata["_type"] = record.get("_type")
+    metadata["input_variables"] = record.get("input_variables")
+    metadata["template"] = record.get("template")
+    return metadata
+ 
+loader = JSONLoader(file_path='./simple_prompt.json', content_key='description', metadata_func=item_metadata_func)
+data = loader.load()
+print(data)
+```
+
+简略版的:
+
+```python
+import json
+import jmespath
+from pathlib import Path
+
+class CustomJSONLoader:
+    def __init__(self, file_path, jq_schema, text_content=True, encoding="utf-8"):
+        self.file_path = Path(file_path).resolve()
+        self.jq_schema = jq_schema
+        self.text_content = text_content
+        self.encoding = encoding
+
+    def load(self):
+        # 读取 JSON 文件
+        with open(self.file_path, 'r', encoding=self.encoding) as f:
+            data = json.load(f)
+        
+        # 使用 jmespath 解析 JSON 数据
+        result = jmespath.search(self.jq_schema, data)
+
+        if self.text_content:
+            return {"content": result}
+        else:
+            return result
+
+# 使用自定义的 JSONLoader 类
+loader = CustomJSONLoader(
+    file_path="simple_prompt.json", jq_schema="template", text_content=True
+)
+data = loader.load()
+print(data)
+```
+
+![](./image/2.31.png)
+
+###### 加载PDF文件
+
+还是需要安装一个包
+
+```bash
+! pip install pypdf
+```
+
+这个包是用来解析我们的pdf格式的文件的
+
+```python
+# 导入模块
+from langchain.document_loaders import PyPDFLoader
+
+loader = PyPDFLoader("./loader.pdf")
+pages = loader.load_and_split()
+pages
+# 这里可以用下标的方式将文本给取出来
+# pages[0]
+```
+
+![](./image/2.32.png)
