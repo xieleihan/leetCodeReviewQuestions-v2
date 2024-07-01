@@ -151,9 +151,9 @@
     <!-- 代码高亮 -->
     <script src="https://fastly.jsdelivr.net/npm/prismjs@1.22.0/components/prism-java.min.js"></script>
     <!-- bash命令高亮 -->
-    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+    <script src="//fastly.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
     <!-- PHP高亮 -->
-    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
+    <script src="//fastly.jsdelivr.net/npm/prismjs@1/components/prism-php.min.js"></script>
     <!-- 字数统计 -->
     <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
     <!-- docsify的js依赖 -->
@@ -215,7 +215,7 @@
             microseconds - 0-999之间的整数，做为date对象的毫秒数 */
 
             /* 建站时间 */
-            var t1 = Date.UTC(2024,04, 26,00,00,00);
+            var t1 = Date.UTC(2024,4, 26,0,0,0);
             var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
             var diff = t2 - t1;
             var diffYears = Math.floor(diff / years);
