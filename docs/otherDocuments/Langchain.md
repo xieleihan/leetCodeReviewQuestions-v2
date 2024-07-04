@@ -1,2 +1,3 @@
 - [初识Langchain](otherDocuments/初入Langchain.md)
 - [Langchain的Doc处理](otherDocuments/langchain对doc的处理.md)
+- [langchain中对chain的讲解延拓](otherDocuments/langchain中对chain的讲解延拓.md)
