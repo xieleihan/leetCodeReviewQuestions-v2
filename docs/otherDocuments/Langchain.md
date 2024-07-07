@@ -1,3 +1,5 @@
 - [初识Langchain](otherDocuments/初入Langchain.md)
 - [Langchain的Doc处理](otherDocuments/langchain对doc的处理.md)
 - [langchain中对chain的讲解延拓](otherDocuments/langchain中对chain的讲解延拓.md)
+- [使用Dashscope实现对OpenAI的接口调用的兼容](otherDocuments/使用Dashscope实现对OpenAI的接口调用的兼容.md)
+- [实现一个聊天机器人](otherDocuments/实现一个聊天机器人.md)
