@@ -2,3 +2,4 @@
 - [Docsify搭建教程](otherDocuments/createDocsifyTutorial.md)
 - [Langchain教程](otherDocuments/Langchain.md)
 - [JavaScript学习](otherDocuments/JavaScript-StudyDocument/JavaScript.md)
+- [排序算法](otherDocuments/排序算法大全.md)
