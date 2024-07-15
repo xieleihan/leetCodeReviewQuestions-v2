@@ -2,3 +2,5 @@
 - [2.运算符,表达式,流程控制语句](otherDocuments/JavaScript-StudyDocument/2.运算符,表达式,流程控制语句.md)
 - [3.数组与排序算法](otherDocuments/JavaScript-StudyDocument/3.数组与排序算法.md)
 - [4.函数式编程,递归,作用域与作用域链](otherDocuments/JavaScript-StudyDocument/4.函数式编程,递归,作用域与作用域链.md)
+- [5.对象,堆栈,数据类型转换](otherDocuments/JavaScript-StudyDocument/5.对象,堆栈,数据类型转换.md)
+- [6.数据类型API方法](otherDocuments/JavaScript-StudyDocument/6.数据类型API方法.md)

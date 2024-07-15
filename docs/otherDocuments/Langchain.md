@@ -4,3 +4,4 @@
 - [使用Dashscope实现对OpenAI的接口调用的兼容](otherDocuments/使用Dashscope实现对OpenAI的接口调用的兼容.md)
 - [实现一个聊天机器人](otherDocuments/实现一个聊天机器人.md)
 - [书生浦语-1](otherDocuments/internStudio/书生大模型实战营(一).md)
+- [实现一个聊天机器人2](otherDocuments/实现一个聊天机器人2.md)
