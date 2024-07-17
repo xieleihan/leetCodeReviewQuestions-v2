@@ -4,3 +4,4 @@
 - [4.函数式编程,递归,作用域与作用域链](otherDocuments/JavaScript-StudyDocument/4.函数式编程,递归,作用域与作用域链.md)
 - [5.对象,堆栈,数据类型转换](otherDocuments/JavaScript-StudyDocument/5.对象,堆栈,数据类型转换.md)
 - [6.数据类型API方法](otherDocuments/JavaScript-StudyDocument/6.数据类型API方法.md)
+- [比较精简的JavaScript实现的功能](otherDocuments/JavaScript-StudyDocument/比较精简的JavaScript实现的功能.md)
