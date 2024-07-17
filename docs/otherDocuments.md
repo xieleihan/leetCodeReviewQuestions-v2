@@ -3,3 +3,4 @@
 - [Langchain教程](otherDocuments/Langchain.md)
 - [JavaScript学习](otherDocuments/JavaScript-StudyDocument/JavaScript.md)
 - [排序算法](otherDocuments/排序算法大全.md)
+- [ASCII码表](otherDocuments/ASCII码表.md)
