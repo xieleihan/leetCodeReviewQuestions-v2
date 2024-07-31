@@ -4,7 +4,7 @@
 
 > `JavaScript` 进阶问题列表
 
-## (https://interview.html5.wiki/console.html#_1-输出是什么)1.输出是什么？
+## (_1-输出是什么)1.输出是什么？
 
 ------
 
@@ -26,7 +26,7 @@ sayHi()
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d)答案: D
+### (答案-d)答案: D
 
 在函数内部，我们首先通过 `var` 关键字声明了 `name` 变量。这意味着变量被提升了（内存空间在创建阶段就被设置好了），直到程序运行到定义变量位置之前默认值都是 `undefined`。因为当我们打印 `name` 变量时还没有执行到定义变量的位置，因此变量的值保持为 `undefined`。
 
@@ -34,7 +34,7 @@ sayHi()
 
 ------
 
-## (https://interview.html5.wiki/console.html#_2-输出是什么)2.输出是什么？
+## (_2-输出是什么)2.输出是什么？
 
 ------
 
@@ -54,7 +54,7 @@ for (let i = 0; i < 3; i++) {
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c)答案: C
+### (答案-c)答案: C
 
 由于 JavaScript 的事件循环，`setTimeout` 回调会在*遍历结束后*才执行。因为在第一个遍历中遍历 `i` 是通过 `var` 关键字声明的，所以这个值是全局作用域下的。在遍历过程中，我们通过一元操作符 `++` 来每次递增 `i` 的值。当 `setTimeout` 回调执行的时候，`i` 的值等于 3。
 
@@ -62,7 +62,7 @@ for (let i = 0; i < 3; i++) {
 
 ------
 
-## (https://interview.html5.wiki/console.html#_3-输出是什么)3.输出是什么？
+## (_3-输出是什么)3.输出是什么？
 
 ------
 
@@ -86,7 +86,7 @@ shape.perimeter()
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b)答案: B
+### (答案-b)答案: B
 
 注意 `diameter` 的值是一个常规函数，但是 `perimeter` 的值是一个箭头函数。
 
@@ -96,7 +96,7 @@ shape.perimeter()
 
 ------
 
-## (https://interview.html5.wiki/console.html#_4-输出是什么)4.输出是什么？
+## (_4-输出是什么)4.输出是什么？
 
 ------
 
@@ -111,7 +111,7 @@ shape.perimeter()
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a)答案: A
+### (答案-a)答案: A
 
 一元操作符加号尝试将 bool 转为 number。`true` 转换为 number 的话为 `1`，`false` 为 `0`。
 
@@ -119,7 +119,7 @@ shape.perimeter()
 
 ------
 
-## (https://interview.html5.wiki/console.html#_5-哪一个是无效的)5.哪一个是无效的？
+## (_5-哪一个是无效的)5.哪一个是无效的？
 
 ------
 
@@ -141,7 +141,7 @@ const mouse = {
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-2)答案: A
+### (答案-a-2)答案: A
 
 在 JavaScript 中，所有对象的 keys 都是字符串（除非对象是 Symbol）。尽管我们可能不会定义它们为字符串，但它们在底层总会被转换为字符串。
 
@@ -153,7 +153,7 @@ const mouse = {
 
 ------
 
-## (https://interview.html5.wiki/console.html#_6-输出是什么)6.输出是什么？
+## (_6-输出是什么)6.输出是什么？
 
 ------
 
@@ -173,7 +173,7 @@ console.log(d.greeting)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-3)答案: A
+### (答案-a-3)答案: A
 
 在 JavaScript 中，当设置两个对象彼此相等时，它们会通过*引用*进行交互。
 
@@ -185,7 +185,7 @@ console.log(d.greeting)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_7-输出是什么)7.输出是什么？
+## (_7-输出是什么)7.输出是什么？
 
 ------
 
@@ -206,7 +206,7 @@ console.log(b === c)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-2)答案: C
+### (答案-c-2)答案: C
 
 `new Number()` 是一个内建的函数构造器。虽然它看着像是一个 number，但它实际上并不是一个真实的 number：它有一堆额外的功能并且它是一个对象。
 
@@ -216,7 +216,7 @@ console.log(b === c)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_8-输出是什么)8.输出是什么？
+## (_8-输出是什么)8.输出是什么？
 
 ------
 
@@ -243,7 +243,7 @@ freddie.colorChange('orange')
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-2)答案: D
+### (答案-d-2)答案: D
 
 `colorChange` 是一个静态方法。静态方法被设计为只能被创建它们的构造器使用（也就是 `Chameleon`），并且不能传递给实例。因为 `freddie` 是一个实例，静态方法不能被实例使用，因此抛出了 `TypeError` 错误。
 
@@ -265,7 +265,7 @@ console.log(greetign)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-4)答案: A
+### (答案-a-4)答案: A
 
 代码打印出了一个对象，这是因为我们在全局对象上创建了一个空对象！当我们将 `greeting` 写错成 `greetign` 时，JS 解释器实际在上浏览器中将它视为 `global.greetign = {}` （或者 `window.greetign = {}`）。
 
@@ -273,7 +273,7 @@ console.log(greetign)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_10-当我们这么做时-会发生什么)10.当我们这么做时，会发生什么？
+## (_10-当我们这么做时-会发生什么)10.当我们这么做时，会发生什么？
 
 ------
 
@@ -292,7 +292,7 @@ bark.animal = 'dog'
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-5)答案: A
+### (答案-a-5)答案: A
 
 这在 JavaScript 中是可以的，因为函数是对象！（除了基本类型之外其他都是对象）
 
@@ -300,7 +300,7 @@ bark.animal = 'dog'
 
 ------
 
-## (https://interview.html5.wiki/console.html#_11-输出是什么)11.输出是什么？
+## (_11-输出是什么)11.输出是什么？
 
 ------
 
@@ -325,7 +325,7 @@ console.log(member.getFullName());
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-6)答案: A
+### (答案-a-6)答案: A
 
 你不能像常规对象那样，给构造函数添加属性。如果你想一次性给所有实例添加特性，你应该使用原型。因此本例中，使用如下方式：
 
@@ -339,7 +339,7 @@ Person.prototype.getFullName = function () {
 
 ------
 
-## (https://interview.html5.wiki/console.html#_12-输出是什么)12.输出是什么？
+## (_12-输出是什么)12.输出是什么？
 
 ------
 
@@ -363,7 +363,7 @@ console.log(sarah)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-7)答案: A
+### (答案-a-7)答案: A
 
 对于 `sarah`，我们没有使用 `new` 关键字。当使用 `new` 时，`this` 引用我们创建的空对象。当未使用 `new` 时，`this` 引用的是**全局对象**（global object）。
 
@@ -371,7 +371,7 @@ console.log(sarah)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_13-事件传播的三个阶段是什么)13.事件传播的三个阶段是什么？
+## (_13-事件传播的三个阶段是什么)13.事件传播的三个阶段是什么？
 
 ------
 
@@ -382,7 +382,7 @@ console.log(sarah)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-3)答案: D
+### (答案-d-3)答案: D
 
 在**捕获**（capturing）阶段中，事件从祖先元素向下传播到目标元素。当事件达到**目标**（target）元素后，**冒泡**（bubbling）才开始。
 
@@ -390,7 +390,7 @@ console.log(sarah)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_14-所有对象都有原型。)14.所有对象都有原型。
+## (_14-所有对象都有原型。)14.所有对象都有原型。
 
 ------
 
@@ -399,13 +399,13 @@ console.log(sarah)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-2)答案: B
+### (答案-b-2)答案: B
 
 除了**基本对象**（base object），所有对象都有原型。基本对象可以访问一些方法和属性，比如 `.toString`。这就是为什么你可以使用内置的 JavaScript 方法！所有这些方法在原型上都是可用的。虽然 JavaScript 不能直接在对象上找到这些方法，但 JavaScript 会沿着原型链找到它们，以便于你使用。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_15-输出是什么)15.输出是什么？
+## (_15-输出是什么)15.输出是什么？
 
 ------
 
@@ -424,7 +424,7 @@ sum(1, '2')
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-3)答案: C
+### (答案-c-3)答案: C
 
 JavaScript 是一种**动态类型语言**：我们不指定某些变量的类型。值可以在你不知道的情况下自动转换成另一种类型，这种类型称为**隐式类型转换**（implicit type coercion）。**Coercion** 是指将一种类型转换为另一种类型。
 
@@ -432,7 +432,7 @@ JavaScript 是一种**动态类型语言**：我们不指定某些变量的类�
 
 ------
 
-## (https://interview.html5.wiki/console.html#_16-输出是什么)16.输出是什么？
+## (_16-输出是什么)16.输出是什么？
 
 ------
 
@@ -450,7 +450,7 @@ console.log(number)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-4)答案: C
+### (答案-c-4)答案: C
 
 一元**后自增**运算符 `++`：
 
@@ -466,7 +466,7 @@ console.log(number)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_17-输出是什么)17.输出是什么？
+## (_17-输出是什么)17.输出是什么？
 
 ------
 
@@ -489,13 +489,13 @@ getPersonInfo`${person} is ${age} years old`
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-3)答案: B
+### (答案-b-3)答案: B
 
 如果使用标记模板字面量，第一个参数的值总是包含字符串的数组。其余的参数获取的是传递的表达式的值！
 
 ------
 
-## (https://interview.html5.wiki/console.html#_18-输出是什么)18.输出是什么？
+## (_18-输出是什么)18.输出是什么？
 
 ------
 
@@ -519,7 +519,7 @@ checkAge({ age: 18 })
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-5)答案: C
+### (答案-c-5)答案: C
 
 在测试相等性时，基本类型通过它们的值（value）进行比较，而对象通过它们的引用（reference）进行比较。JavaScript 检查对象是否具有对内存中相同位置的引用。
 
@@ -529,7 +529,7 @@ checkAge({ age: 18 })
 
 ------
 
-## (https://interview.html5.wiki/console.html#_19-输出是什么)19.输出是什么？
+## (_19-输出是什么)19.输出是什么？
 
 ------
 
@@ -548,13 +548,13 @@ getAge(21)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-6)答案: C
+### (答案-c-6)答案: C
 
 扩展运算符（`...args`）会返回实参组成的数组。而数组是对象，因此 `typeof args` 返回 `"object"`。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_20-输出是什么)20.输出是什么？
+## (_20-输出是什么)20.输出是什么？
 
 ------
 
@@ -575,13 +575,13 @@ getAge()
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-7)答案: C
+### (答案-c-7)答案: C
 
 使用 `"use strict"`，你可以确保不会意外地声明全局变量。我们从来没有声明变量 `age`，因为我们使用 `"use strict"`，它将抛出一个引用错误。如果我们不使用 `"use strict"`，它就会工作，因为属性 `age` 会被添加到全局对象中了。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_21-输出是什么)21.输出是什么？
+## (_21-输出是什么)21.输出是什么？
 
 ------
 
@@ -596,13 +596,13 @@ const sum = eval('10*10+5')
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-8)答案: A
+### (答案-a-8)答案: A
 
 代码以字符串形式传递进来，`eval` 对其求值。如果它是一个表达式，就像本例中那样，它对表达式求值。表达式是 `10 * 10 + 5`。这将返回数字 `105`。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_22-cool-secret-可访问多长时间)22.cool_secret 可访问多长时间？
+## (_22-cool-secret-可访问多长时间)22.cool_secret 可访问多长时间？
 
 ------
 
@@ -617,7 +617,7 @@ sessionStorage.setItem('cool_secret', 123)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-4)答案: B
+### (答案-b-4)答案: B
 
 关闭 **tab 标签页** 后，`sessionStorage` 存储的数据才会删除。
 
@@ -625,7 +625,7 @@ sessionStorage.setItem('cool_secret', 123)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_23-输出是什么)23.输出是什么？
+## (_23-输出是什么)23.输出是什么？
 
 ------
 
@@ -643,7 +643,7 @@ console.log(num)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-5)答案: B
+### (答案-b-5)答案: B
 
 使用 `var` 关键字，你可以用相同的名称声明多个变量。然后变量将保存最新的值。
 
@@ -651,7 +651,7 @@ console.log(num)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_24-输出是什么)24.输出是什么？
+## (_24-输出是什么)24.输出是什么？
 
 ------
 
@@ -672,7 +672,7 @@ set.has(1)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-8)答案: C
+### (答案-c-8)答案: C
 
 所有对象的键（不包括 Symbol）在底层都是字符串，即使你自己没有将其作为字符串输入。这就是为什么 `obj.hasOwnProperty('1')` 也返回 `true`。
 
@@ -680,7 +680,7 @@ set.has(1)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_25-输出是什么)25.输出是什么？
+## (_25-输出是什么)25.输出是什么？
 
 ------
 
@@ -696,13 +696,13 @@ console.log(obj)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-9)答案: C
+### (答案-c-9)答案: C
 
 如果你有两个名称相同的键，则键会被替换掉。它仍然位于第一个键出现的位置，但是值是最后出现那个键的值。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_26-javascript-全局执行上下文为你做了两件事-全局对象和-this-关键字。)26.JavaScript 全局执行上下文为你做了两件事：全局对象和 this 关键字。
+## (_26-javascript-全局执行上下文为你做了两件事-全局对象和-this-关键字。)26.JavaScript 全局执行上下文为你做了两件事：全局对象和 this 关键字。
 
 ------
 
@@ -712,13 +712,13 @@ console.log(obj)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-9)答案: A
+### (答案-a-9)答案: A
 
 基本执行上下文是全局执行上下文：它是代码中随处可访问的内容。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_27-输出是什么)27.输出是什么？
+## (_27-输出是什么)27.输出是什么？
 
 ------
 
@@ -736,13 +736,13 @@ for (let i = 1; i < 5; i++) {
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-10)答案: C
+### (答案-c-10)答案: C
 
 如果某个条件返回 `true`，则 `continue` 语句跳过本次迭代。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_28-输出是什么)28.输出是什么？
+## (_28-输出是什么)28.输出是什么？
 
 ------
 
@@ -763,13 +763,13 @@ name.giveLydiaPizza()
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-10)答案: A
+### (答案-a-10)答案: A
 
 `String` 是内置的构造函数，我们可以向它添加属性。我只是在它的原型中添加了一个方法。基本类型字符串被自动转换为字符串对象，由字符串原型函数生成。因此，所有 string(string 对象)都可以访问该方法！
 
 ------
 
-## (https://interview.html5.wiki/console.html#_29-输出是什么)29.输出是什么？
+## (_29-输出是什么)29.输出是什么？
 
 ------
 
@@ -791,7 +791,7 @@ console.log(a[b])
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-6)答案: B
+### (答案-b-6)答案: B
 
 对象的键被自动转换为字符串。我们试图将一个对象 `b` 设置为对象 `a` 的键，且相应的值为 `123`。
 
@@ -801,7 +801,7 @@ console.log(a[b])
 
 ------
 
-## (https://interview.html5.wiki/console.html#_30-输出是什么)30.输出是什么？
+## (_30-输出是什么)30.输出是什么？
 
 ------
 
@@ -822,7 +822,7 @@ baz()
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-7)答案: B
+### (答案-b-7)答案: B
 
 我们有一个 `setTimeout` 函数，并首先调用它。然而，它是最后打印日志的。
 
@@ -852,7 +852,7 @@ WebAPI 不能随时向栈内添加内容。相反，它将回调函数推到名�
 
 ------
 
-## (https://interview.html5.wiki/console.html#_31-当点击按钮时-event-target-是什么)31.当点击按钮时，event.target 是什么？
+## (_31-当点击按钮时-event-target-是什么)31.当点击按钮时，event.target 是什么？
 
 ------
 
@@ -873,13 +873,13 @@ WebAPI 不能随时向栈内添加内容。相反，它将回调函数推到名�
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-11)答案: C
+### (答案-c-11)答案: C
 
 导致事件的最深嵌套的元素是事件的 target。你可以通过 `event.stopPropagation` 来停止冒泡。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_32-当您单击该段落时-日志输出是什么)32.当您单击该段落时，日志输出是什么？
+## (_32-当您单击该段落时-日志输出是什么)32.当您单击该段落时，日志输出是什么？
 
 ------
 
@@ -898,13 +898,13 @@ WebAPI 不能随时向栈内添加内容。相反，它将回调函数推到名�
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-11)答案: A
+### (答案-a-11)答案: A
 
 如果我们点击 `p`，我们会看到两个日志：`p` 和 `div`。在事件传播期间，有三个阶段：捕获、目标和冒泡。默认情况下，事件处理程序在冒泡阶段执行（除非将 `useCapture` 设置为 `true`）。它从嵌套最深的元素向外传播。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_33-输出是什么)33.输出是什么？
+## (_33-输出是什么)33.输出是什么？
 
 ------
 
@@ -926,7 +926,7 @@ sayHi.bind(person, 21)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-4)答案: D
+### (答案-d-4)答案: D
 
 使用这两种方法，我们都可以传递我们希望 `this` 关键字引用的对象。但是，`.call` 是**立即执行**的。
 
@@ -934,7 +934,7 @@ sayHi.bind(person, 21)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_34-输出是什么)34.输出是什么？
+## (_34-输出是什么)34.输出是什么？
 
 ------
 
@@ -953,7 +953,7 @@ typeof sayHi()
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-8)答案: B
+### (答案-b-8)答案: B
 
 ```
 sayHi` 方法返回的是立即执行函数(IIFE)的返回值.此立即执行函数的返回值是 `0`， 类型是 `number
@@ -963,7 +963,7 @@ sayHi` 方法返回的是立即执行函数(IIFE)的返回值.此立即执行函
 
 ------
 
-## (https://interview.html5.wiki/console.html#_35-下面哪些值是-falsy)35.下面哪些值是 falsy?
+## (_35-下面哪些值是-falsy)35.下面哪些值是 falsy?
 
 ------
 
@@ -983,7 +983,7 @@ undefined
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-12)答案: A
+### (答案-a-12)答案: A
 
 只有 6 种 [falsy (opens new window) (opens new window)](https://developer.mozilla.org/zh-CN/docs/Glossary/Falsy)值:
 
@@ -998,7 +998,7 @@ undefined
 
 ------
 
-## (https://interview.html5.wiki/console.html#_36-输出是什么)36.输出是什么？
+## (_36-输出是什么)36.输出是什么？
 
 ------
 
@@ -1013,13 +1013,13 @@ console.log(typeof typeof 1)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-9)答案: B
+### (答案-b-9)答案: B
 
 `typeof 1` 返回 `"number"`。 `typeof "number"` 返回 `"string"`。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_37-输出是什么)37.输出是什么？
+## (_37-输出是什么)37.输出是什么？
 
 ------
 
@@ -1036,7 +1036,7 @@ console.log(numbers)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-12)答案: C
+### (答案-c-12)答案: C
 
 当你为数组设置超过数组长度的值的时候， JavaScript 会创建名为 "empty slots" 的东西。它们的值实际上是 `undefined`。你会看到以下场景：
 
@@ -1048,7 +1048,7 @@ console.log(numbers)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_38-输出是什么)38.输出是什么？
+## (_38-输出是什么)38.输出是什么？
 
 ------
 
@@ -1073,7 +1073,7 @@ console.log(numbers)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-13)答案: A
+### (答案-a-13)答案: A
 
 `catch` 代码块接收参数 `x`。当我们传递参数时，这与之前定义的变量 `x` 不同 。这个 `x` 是属于 `catch` 块级作用域的。
 
@@ -1083,7 +1083,7 @@ console.log(numbers)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_39-javascript-中的一切都是)39.JavaScript 中的一切都是？
+## (_39-javascript-中的一切都是)39.JavaScript 中的一切都是？
 
 ------
 
@@ -1094,7 +1094,7 @@ console.log(numbers)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-14)答案: A
+### (答案-a-14)答案: A
 
 JavaScript 只有基本类型和对象。
 
@@ -1102,7 +1102,7 @@ JavaScript 只有基本类型和对象。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_40-输出是什么)40.输出是什么？
+## (_40-输出是什么)40.输出是什么？
 
 ------
 
@@ -1122,7 +1122,7 @@ JavaScript 只有基本类型和对象。
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-13)答案: C
+### (答案-c-13)答案: C
 
 ```
 [1, 2]`是初始值。初始值将会作为首次调用时第一个参数 `acc` 的值。在第一次执行时， `acc` 的值是 `[1, 2]`， `cur` 的值是 `[0, 1]`。合并它们，结果为 `[1, 2, 0, 1]`。 第二次执行， `acc` 的值是 `[1, 2, 0, 1]`， `cur` 的值是 `[2, 3]`。合并它们，最终结果为 `[1, 2, 0, 1, 2, 3]
@@ -1130,7 +1130,7 @@ JavaScript 只有基本类型和对象。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_41-输出是什么)41.输出是什么？
+## (_41-输出是什么)41.输出是什么？
 
 ------
 
@@ -1147,7 +1147,7 @@ JavaScript 只有基本类型和对象。
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-10)答案: B
+### (答案-b-10)答案: B
 
 `null` 是 [falsy (opens new window) (opens new window)](https://developer.mozilla.org/zh-CN/docs/Glossary/Falsy)。 `!null` 的值是 `true`。 `!true` 的值是 `false`。
 
@@ -1157,7 +1157,7 @@ JavaScript 只有基本类型和对象。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_42-setinterval-方法的返回值是什么)42.`setInterval` 方法的返回值是什么？
+## (_42-setinterval-方法的返回值是什么)42.`setInterval` 方法的返回值是什么？
 
 ------
 
@@ -1172,13 +1172,13 @@ setInterval(() => console.log('Hi'), 1000)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-15)答案: A
+### (答案-a-15)答案: A
 
 `setInterval` 返回一个唯一的 id。此 id 可被用于 `clearInterval` 函数来取消定时。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_43-输出是什么)43.输出是什么？
+## (_43-输出是什么)43.输出是什么？
 
 ------
 
@@ -1193,13 +1193,13 @@ setInterval(() => console.log('Hi'), 1000)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-16)答案: A
+### (答案-a-16)答案: A
 
 string 类型是可迭代的。扩展运算符将迭代的每个字符映射成一个元素。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_44-输出是什么)44.输出是什么?
+## (_44-输出是什么)44.输出是什么?
 
 ------
 
@@ -1222,7 +1222,7 @@ console.log(gen.next().value);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-14)答案: C
+### (答案-c-14)答案: C
 
 一般的函数在执行之后是不能中途停下的。但是，生成器函数却可以中途“停下”，之后可以再从停下的地方继续。当生成器遇到`yield`关键字的时候，会生成`yield`后面的值。注意，生成器在这种情况下不 *返回* (*return* )值，而是 *生成* (*yield*)值。
 
@@ -1230,7 +1230,7 @@ console.log(gen.next().value);
 
 然后，我们再执行`next()`方法。生成器会从刚才暂停的地方继续，这个时候`i`还是`10`。于是我们走到了第二个`yield`关键字处，这时候需要生成的值是`i*2`，`i`为`10`，那么此时生成的值便是`20`。所以这道题的最终结果是`10,20`。
 
-## (https://interview.html5.wiki/console.html#_45-返回值是什么)45.返回值是什么?
+## (_45-返回值是什么)45.返回值是什么?
 
 ------
 
@@ -1253,13 +1253,13 @@ Promise.race([firstPromise, secondPromise]).then(res => console.log(res));
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-11)答案: B
+### (答案-b-11)答案: B
 
 当我们向`Promise.race`方法中传入多个`Promise`时，会进行 *优先* 解析。在这个例子中，我们用`setTimeout`给`firstPromise`和`secondPromise`分别设定了 500ms 和 100ms 的定时器。这意味着`secondPromise`会首先解析出字符串`two`。那么此时`res`参数即为`two`，是为输出结果。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_46-输出是什么)46.输出是什么?
+## (_46-输出是什么)46.输出是什么?
 
 ------
 
@@ -1278,7 +1278,7 @@ console.log(members);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-5)答案: D
+### (答案-d-5)答案: D
 
 首先我们声明了一个拥有`name`属性的对象 `person`。
 
@@ -1296,7 +1296,7 @@ console.log(members);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_47-输出是什么)47.输出是什么?
+## (_47-输出是什么)47.输出是什么?
 
 ------
 
@@ -1318,13 +1318,13 @@ for (const item in person) {
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-12)答案: B
+### (答案-b-12)答案: B
 
 在`for-in`循环中,我们可以通过对象的 key 来进行迭代,也就是这里的`name`和`age`。在底层，对象的 key 都是字符串（如果他们不是 Symbol 的话）。在每次循环中，我们将`item`设定为当前遍历到的 key.所以一开始，`item`是`name`，之后 `item`输出的则是`age`。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_48-输出是什么)48.输出是什么?
+## (_48-输出是什么)48.输出是什么?
 
 ------
 
@@ -1339,7 +1339,7 @@ console.log(3 + 4 + "5");
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-13)答案: B
+### (答案-b-13)答案: B
 
 当所有运算符的 *优先级* 相同时，计算表达式需要确定运算符的结合顺序，即从右到左还是从左往右。在这个例子中，我们只有一类运算符`+`，对于加法来说，结合顺序就是从左到右。
 
@@ -1349,7 +1349,7 @@ console.log(3 + 4 + "5");
 
 ------
 
-## (https://interview.html5.wiki/console.html#_49-num的值是什么)49.`num`的值是什么?
+## (_49-num的值是什么)49.`num`的值是什么?
 
 ------
 
@@ -1364,7 +1364,7 @@ const num = parseInt("7*6", 10);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-15)答案: C
+### (答案-c-15)答案: C
 
 只返回了字符串中第一个字母. 设定了 *进制* 后 (也就是第二个参数，指定需要解析的数字是什么进制: 十进制、十六机制、八进制、二进制等等……),`parseInt` 检查字符串中的字符是否合法. 一旦遇到一个在指定进制中不合法的字符后，立即停止解析并且忽略后面所有的字符。
 
@@ -1372,7 +1372,7 @@ const num = parseInt("7*6", 10);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_50-输出是什么)50.输出是什么?
+## (_50-输出是什么)50.输出是什么?
 
 ------
 
@@ -1390,7 +1390,7 @@ const num = parseInt("7*6", 10);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-16)答案: C
+### (答案-c-16)答案: C
 
 对数组进行映射的时候,`num`就是当前循环到的元素. 在这个例子中，所有的映射都是 number 类型，所以 if 中的判断`typeof num === "number"`结果都是`true`.map 函数创建了新数组并且将函数的返回值插入数组。
 
@@ -1398,7 +1398,7 @@ const num = parseInt("7*6", 10);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_51-输出的是什么)51.输出的是什么?
+## (_51-输出的是什么)51.输出的是什么?
 
 ------
 
@@ -1423,7 +1423,7 @@ console.log(person, birthYear);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-17)答案: A
+### (答案-a-17)答案: A
 
 普通参数都是 *值* 传递的，而对象则不同，是 *引用* 传递。所以说，`birthYear`是值传递，因为他是个字符串而不是对象。当我们对参数进行值传递时，会创建一份该值的 *复制* 。（可以参考问题 46）
 
@@ -1433,7 +1433,7 @@ console.log(person, birthYear);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_52-输出是什么)52.输出是什么?
+## (_52-输出是什么)52.输出是什么?
 
 ------
 
@@ -1461,7 +1461,7 @@ sayHi();
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-6)答案: D
+### (答案-d-6)答案: D
 
 通过`throw`语句，我么可以创建自定义错误。 而通过它，我们可以抛出异常。异常可以是一个**字符串**, 一个 **数字**, 一个 **布尔类型** 或者是一个 **对象**。在本例中，我们的异常是字符串`'Hello world'`.
 
@@ -1469,7 +1469,7 @@ sayHi();
 
 ------
 
-## (https://interview.html5.wiki/console.html#_53-输出是什么)53.输出是什么?
+## (_53-输出是什么)53.输出是什么?
 
 ------
 
@@ -1490,13 +1490,13 @@ console.log(myCar.make);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-14)答案: B
+### (答案-b-14)答案: B
 
 返回属性的时候，属性的值等于 *返回的* 值，而不是构造函数中设定的值。我们返回了字符串 `"Maserati"`，所以 `myCar.make`等于`"Maserati"`.
 
 ------
 
-## (https://interview.html5.wiki/console.html#_54-输出是什么)54.输出是什么?
+## (_54-输出是什么)54.输出是什么?
 
 ------
 
@@ -1516,7 +1516,7 @@ console.log(typeof y);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-18)答案: A
+### (答案-a-18)答案: A
 
 `let x = y = 10;` 是下面这个表达式的缩写:
 
@@ -1533,7 +1533,7 @@ let x = y;
 
 ------
 
-## (https://interview.html5.wiki/console.html#_55-输出是什么)55.输出是什么?
+## (_55-输出是什么)55.输出是什么?
 
 ------
 
@@ -1564,7 +1564,7 @@ pet.bark();
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-19)答案: A
+### (答案-a-19)答案: A
 
 我们可以用`delete`关键字删除对象的属性，对原型也是适用的。删除了原型的属性后，该属性在原型链上就不可用了。在本例中，函数`bark`在执行了`delete Dog.prototype.bark`后不可用, 然而后面的代码还在调用它。
 
@@ -1572,7 +1572,7 @@ pet.bark();
 
 ------
 
-## (https://interview.html5.wiki/console.html#_56-输出是什么)56.输出是什么?
+## (_56-输出是什么)56.输出是什么?
 
 ------
 
@@ -1589,7 +1589,7 @@ console.log(set);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-7)答案: D
+### (答案-d-7)答案: D
 
 `Set`对象是独一无二的值的集合：也就是说同一个值在其中仅出现一次。
 
@@ -1597,7 +1597,7 @@ console.log(set);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_57-输出是什么)57.输出是什么?
+## (_57-输出是什么)57.输出是什么?
 
 ------
 
@@ -1620,7 +1620,7 @@ console.log(myCounter);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-17)答案: C
+### (答案-c-17)答案: C
 
 引入的模块是 *只读* 的: 你不能修改引入的模块。只有导出他们的模块才能修改其值。
 
@@ -1628,7 +1628,7 @@ console.log(myCounter);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_58-输出是什么)58.输出是什么?
+## (_58-输出是什么)58.输出是什么?
 
 ------
 
@@ -1647,7 +1647,7 @@ console.log(delete age);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-20)答案: A
+### (答案-a-20)答案: A
 
 `delete`操作符返回一个布尔值： `true`指删除成功，否则返回`false`. 但是通过 `var`, `const` 或 `let` 关键字声明的变量无法用 `delete` 操作符来删除。
 
@@ -1655,7 +1655,7 @@ console.log(delete age);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_59-输出是什么)59.输出是什么?
+## (_59-输出是什么)59.输出是什么?
 
 ------
 
@@ -1673,7 +1673,7 @@ console.log(y);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-18)答案: C
+### (答案-c-18)答案: C
 
 我们可以通过解构赋值来解析来自对象的数组或属性的值，比如说：
 
@@ -1695,7 +1695,7 @@ console.log(y);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_60-输出是什么)60.输出是什么?
+## (_60-输出是什么)60.输出是什么?
 
 ------
 
@@ -1713,13 +1713,13 @@ console.log(admin);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-15)答案: B
+### (答案-b-15)答案: B
 
 扩展运算符`...`为对象的组合提供了可能。你可以复制对象中的键值对，然后把它们加到另一个对象里去。在本例中，我们复制了`user`对象键值对，然后把它们加入到`admin`对象中。`admin`对象就拥有了这些键值对，所以结果为`{ admin: true, name: "Lydia", age: 21 }`.
 
 ------
 
-## (https://interview.html5.wiki/console.html#_61-输出是什么)61.输出是什么?
+## (_61-输出是什么)61.输出是什么?
 
 ------
 
@@ -1739,7 +1739,7 @@ console.log(Object.keys(person));
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-16)答案: B
+### (答案-b-16)答案: B
 
 通过`defineProperty`方法，我们可以给对象添加一个新属性，或者修改已经存在的属性。而我们使用`defineProperty`方法给对象添加了一个属性之后，属性默认为 *不可枚举(not enumerable)*. `Object.keys`方法仅返回对象中 *可枚举(enumerable)* 的属性，因此只剩下了`"name"`.
 
@@ -1747,7 +1747,7 @@ console.log(Object.keys(person));
 
 ------
 
-## (https://interview.html5.wiki/console.html#_62-输出是什么)62.输出是什么?
+## (_62-输出是什么)62.输出是什么?
 
 ------
 
@@ -1769,7 +1769,7 @@ console.log(data);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-21)答案: A
+### (答案-a-21)答案: A
 
 `JSON.stringify`的第二个参数是 *替代者(replacer)*. 替代者(replacer)可以是个函数或数组，用以控制哪些值如何被转换为字符串。
 
@@ -1779,7 +1779,7 @@ console.log(data);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_63-输出是什么)63.输出是什么?
+## (_63-输出是什么)63.输出是什么?
 
 ------
 
@@ -1803,7 +1803,7 @@ console.log(num2);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-22)答案: A
+### (答案-a-22)答案: A
 
 一元操作符 `++` *先返回* 操作值, *再累加* 操作值。`num1`的值是`10`, 因为`increaseNumber`函数首先返回`num`的值，也就是`10`，随后再进行 `num`的累加。
 
@@ -1811,7 +1811,7 @@ console.log(num2);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_64-输出什么)64.输出什么?
+## (_64-输出什么)64.输出什么?
 
 ------
 
@@ -1835,7 +1835,7 @@ multiply(value);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-19)答案: C
+### (答案-c-19)答案: C
 
 在 ES6 中，我们可以使用默认值初始化参数。如果没有给函数传参，或者传的参值为 `"undefined"` ，那么参数的值将是默认值。上述例子中，我们将 `value` 对象进行了解构并传到一个新对象中，因此 `x` 的默认值为 `{number：10}` 。
 
@@ -1847,7 +1847,7 @@ multiply(value);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_65-输出什么)65.输出什么?
+## (_65-输出什么)65.输出什么?
 
 ------
 
@@ -1862,7 +1862,7 @@ multiply(value);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-8)答案: D
+### (答案-d-8)答案: D
 
 `reducer` 函数接收 4 个参数:
 
@@ -1885,7 +1885,7 @@ multiply(value);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_66-使用哪个构造函数可以成功继承dog类)66.使用哪个构造函数可以成功继承`Dog`类?
+## (_66-使用哪个构造函数可以成功继承dog类)66.使用哪个构造函数可以成功继承`Dog`类?
 
 ------
 
@@ -1927,7 +1927,7 @@ class Labrador extends Dog {
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-17)答案: B
+### (答案-b-17)答案: B
 
 在子类中，在调用`super`之前不能访问到`this`关键字。 如果这样做，它将抛出一个`ReferenceError`：1 和 4 将引发一个引用错误。
 
@@ -1937,7 +1937,7 @@ class Labrador extends Dog {
 
 ------
 
-## (https://interview.html5.wiki/console.html#_67-输出什么)67.输出什么?
+## (_67-输出什么)67.输出什么?
 
 ------
 
@@ -1959,7 +1959,7 @@ export const sum = (a, b) => a + b;
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-18)答案: B
+### (答案-b-18)答案: B
 
 `import`命令是编译阶段执行的，在代码运行之前。因此这意味着被导入的模块会先运行，而导入模块的文件会后执行。
 
@@ -1967,7 +1967,7 @@ export const sum = (a, b) => a + b;
 
 ------
 
-## (https://interview.html5.wiki/console.html#_68-输出什么)68.输出什么?
+## (_68-输出什么)68.输出什么?
 
 ------
 
@@ -1984,13 +1984,13 @@ console.log(Symbol('foo') === Symbol('foo'))
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-23)答案: A
+### (答案-a-23)答案: A
 
 每个`Symbol`都是完全唯一的。传递给`Symbol`的参数只是给`Symbol`的一个描述。 `Symbol`的值不依赖于传递的参数。 当我们测试相等时，我们创建了两个全新的符号：第一个`Symbol（'foo'）`，第二个`Symbol（'foo'）`, 这两个值是唯一的，彼此不相等，因此返回`false`。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_69-输出什么)69.输出什么?
+## (_69-输出什么)69.输出什么?
 
 ------
 
@@ -2007,7 +2007,7 @@ console.log(name.padStart(2))
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-20)答案: C
+### (答案-c-20)答案: C
 
 使用`padStart`方法，我们可以在字符串的开头添加填充。传递给此方法的参数是字符串的总长度（包含填充）。字符串`Lydia Hallie`的长度为`12`, 因此`name.padStart（13）`在字符串的开头只会插入 1（`13 - 12 = 1`）个空格。
 
@@ -2015,7 +2015,7 @@ console.log(name.padStart(2))
 
 ------
 
-## (https://interview.html5.wiki/console.html#_70-输出什么)70.输出什么?
+## (_70-输出什么)70.输出什么?
 
 ------
 
@@ -2030,13 +2030,13 @@ console.log("🥑" + "💻");
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-24)答案: A
+### (答案-a-24)答案: A
 
 使用`+`运算符，您可以连接字符串。 上述情况，我们将字符串`“🥑”`与字符串`”💻“`连接起来，产生`”🥑💻“`。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_71-如何能打印出console-log语句后注释掉的值)71.如何能打印出`console.log`语句后注释掉的值？
+## (_71-如何能打印出console-log语句后注释掉的值)71.如何能打印出`console.log`语句后注释掉的值？
 
 ------
 
@@ -2061,7 +2061,7 @@ console.log(/* 2 */); // JavaScript loves you back ❤️
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-21)答案: C
+### (答案-c-21)答案: C
 
 ```
 generator`函数在遇到`yield`关键字时会“暂停”其执行。 首先，我们需要让函数产生字符串`Do you love JavaScript?`，这可以通过调用`game.next().value`来完成。上述函数的第一行就有一个`yield`关键字，那么运行立即停止了，`yield`表达式本身没有返回值，或者说总是返回`undefined`, 这意味着此时变量 `answer` 为`undefined
@@ -2071,7 +2071,7 @@ generator`函数在遇到`yield`关键字时会“暂停”其执行。 首先�
 
 ------
 
-## (https://interview.html5.wiki/console.html#_72-输出什么)72.输出什么?
+## (_72-输出什么)72.输出什么?
 
 ------
 
@@ -2088,7 +2088,7 @@ console.log(String.raw`Hello\nworld`);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-22)答案: C
+### (答案-c-22)答案: C
 
 `String.raw`函数是用来获取一个模板字符串的原始字符串的，它返回一个字符串，其中忽略了转义符（`\n`，`\v`，`\t`等）。但反斜杠可能造成问题，因为你可能会遇到下面这种类似情况：
 
@@ -2115,7 +2115,7 @@ String.raw`C:\Documents\Projects\table.html`
 
 ------
 
-## (https://interview.html5.wiki/console.html#_73-输出什么)73.输出什么?
+## (_73-输出什么)73.输出什么?
 
 ------
 
@@ -2135,7 +2135,7 @@ console.log(data);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-23)答案: C
+### (答案-c-23)答案: C
 
 异步函数始终返回一个 promise。`await`仍然需要等待 promise 的解决：当我们调用`getData()`并将其赋值给`data`，此时`data`为`getData`方法返回的一个挂起的 promise，该 promise 并没有解决。
 
@@ -2149,7 +2149,7 @@ data.then(res => console.log(res))
 
 ------
 
-## (https://interview.html5.wiki/console.html#_74-输出什么)74.输出什么?
+## (_74-输出什么)74.输出什么?
 
 ------
 
@@ -2169,7 +2169,7 @@ console.log(result);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-19)答案: B
+### (答案-b-19)答案: B
 
 `push()`方法返回新数组的长度。一开始，数组包含一个元素（字符串`"banana"`），长度为 1。 在数组中添加字符串`"apple"`后，长度变为 2，并将从`addToList`函数返回。
 
@@ -2177,7 +2177,7 @@ console.log(result);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_75-输出什么)75.输出什么?
+## (_75-输出什么)75.输出什么?
 
 ------
 
@@ -2198,7 +2198,7 @@ console.log(shape)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-20)答案: B
+### (答案-b-20)答案: B
 
 `Object.freeze`使得无法添加、删除或修改对象的属性（除非属性的值是另一个对象）。
 
@@ -2210,7 +2210,7 @@ console.log(shape)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_76-输出什么)76.输出什么?
+## (_76-输出什么)76.输出什么?
 
 ------
 
@@ -2227,7 +2227,7 @@ console.log(name);
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-9)答案: D
+### (答案-d-9)答案: D
 
 当我们从右侧的对象解构属性`name`时，我们将其值`Lydia`分配给名为`myName`的变量。
 
@@ -2237,7 +2237,7 @@ console.log(name);
 
 ------
 
-## (https://interview.html5.wiki/console.html#_77-以下是个纯函数么)77.以下是个纯函数么?
+## (_77-以下是个纯函数么)77.以下是个纯函数么?
 
 ------
 
@@ -2252,7 +2252,7 @@ function sum(a, b) {
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-25)答案: A
+### (答案-a-25)答案: A
 
 纯函数一种若输入参数相同，则永远会得到相同输出的函数。
 
@@ -2260,7 +2260,7 @@ function sum(a, b) {
 
 ------
 
-## (https://interview.html5.wiki/console.html#_78-输出什么)78.输出什么?
+## (_78-输出什么)78.输出什么?
 
 ------
 
@@ -2291,7 +2291,7 @@ console.log(addFunction(5 * 2));
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-24)答案: C
+### (答案-c-24)答案: C
 
 `add`函数是一个记忆函数。 通过记忆化，我们可以缓存函数的结果，以加快其执行速度。上述情况，我们创建一个`cache`对象，用于存储先前返回过的值。
 
@@ -2307,7 +2307,7 @@ console.log(addFunction(5 * 2));
 
 ------
 
-## (https://interview.html5.wiki/console.html#_79-输出什么)79.输出什么?
+## (_79-输出什么)79.输出什么?
 
 ------
 
@@ -2330,7 +2330,7 @@ for (let item of myLifeSummedUp) {
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-26)答案: A
+### (答案-a-26)答案: A
 
 通过`for-in`循环，我们可以遍历一个对象**自有的**、**继承的**、**可枚举的**、**非 Symbol 的**属性。 在数组中，可枚举属性是数组元素的“键”， 即它们的索引。 类似于下面这个对象：
 
@@ -2344,7 +2344,7 @@ for (let item of myLifeSummedUp) {
 
 ------
 
-## (https://interview.html5.wiki/console.html#_80-输出什么)80.输出什么?
+## (_80-输出什么)80.输出什么?
 
 ------
 
@@ -2360,7 +2360,7 @@ console.log(list)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-25)答案: C
+### (答案-c-25)答案: C
 
 数组元素可以包含任何值。 数字，字符串，布尔值，对象，数组，`null`，`undeifned`, 以及其他表达式，如日期，函数和计算。
 
@@ -2368,7 +2368,7 @@ console.log(list)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_81-输出什么)81.输出什么?
+## (_81-输出什么)81.输出什么?
 
 ------
 
@@ -2387,7 +2387,7 @@ console.log(sayHi())
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-21)答案: B
+### (答案-b-21)答案: B
 
 默认情况下，如果不给函数传参，参数的值将为`undefined`。 上述情况，我们没有给参数`name`传值。 `name`等于`undefined`，并被打印。
 
@@ -2401,7 +2401,7 @@ function sayHi（name =“Lydia”）{...}
 
 ------
 
-## (https://interview.html5.wiki/console.html#_82-输出什么)82.输出什么?
+## (_82-输出什么)82.输出什么?
 
 ------
 
@@ -2430,7 +2430,7 @@ setTimeout(() => {
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-22)答案: B
+### (答案-b-22)答案: B
 
 `this`关键字的指向取决于使用它的位置。 在**函数**中，比如`getStatus`，`this`指向的是调用它的对象，上述例子中`data`对象调用了`getStatus`，因此`this`指向的就是`data`对象。 当我们打印`this.status`时，`data`对象的`status`属性被打印，即`"🥑"`。
 
@@ -2438,7 +2438,7 @@ setTimeout(() => {
 
 ------
 
-## (https://interview.html5.wiki/console.html#_83-输出什么)83.输出什么?
+## (_83-输出什么)83.输出什么?
 
 ------
 
@@ -2461,7 +2461,7 @@ console.log(person)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-27)答案: A
+### (答案-a-27)答案: A
 
 我们将变量`city`设置为等于`person`对象上名为`city`的属性的值。 这个对象上没有名为`city`的属性，因此变量`city`的值为`undefined`。
 
@@ -2473,7 +2473,7 @@ console.log(person)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_84-输出什么)84.输出什么?
+## (_84-输出什么)84.输出什么?
 
 ------
 
@@ -2498,13 +2498,13 @@ console.log(checkAge(21))
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-26)答案: C
+### (答案-c-26)答案: C
 
 `const`和`let`声明的变量是具有**块级作用域**的，块是大括号（`{}`）之间的任何东西, 即上述情况`if / else`语句的花括号。 由于块级作用域，我们无法在声明的块之外引用变量，因此抛出`ReferenceError`。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_85-什么样的信息将被打印)85.什么样的信息将被打印?
+## (_85-什么样的信息将被打印)85.什么样的信息将被打印?
 
 ------
 
@@ -2521,13 +2521,13 @@ fetch('https://www.website.com/api/user/1')
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-27)答案: C
+### (答案-c-27)答案: C
 
 第二个`.then`中`res`的值等于前一个`.then`中的回调函数返回的值。 你可以像这样继续链接`.then`，将值传递给下一个处理程序。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_86-哪个选项是将hasname设置为true的方法-前提是不能将true作为参数传递)86.哪个选项是将`hasName`设置为`true`的方法，前提是不能将`true`作为参数传递?
+## (_86-哪个选项是将hasname设置为true的方法-前提是不能将true作为参数传递)86.哪个选项是将`hasName`设置为`true`的方法，前提是不能将`true`作为参数传递?
 
 ------
 
@@ -2544,7 +2544,7 @@ function getName(name) {
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-28)答案: A
+### (答案-a-28)答案: A
 
 使用逻辑非运算符`!`，将返回一个布尔值，使用`!! name`，我们可以确定`name`的值是真的还是假的。 如果`name`是真实的，那么`!name`返回`false`。 `!false`返回`true`。
 
@@ -2554,7 +2554,7 @@ function getName(name) {
 
 `name.length`返回传递的参数的长度，而不是布尔值`true`。
 
-## (https://interview.html5.wiki/console.html#_87-输出什么)87.输出什么?
+## (_87-输出什么)87.输出什么?
 
 ------
 
@@ -2569,7 +2569,7 @@ console.log("I want pizza"[0])
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-23)答案: B
+### (答案-b-23)答案: B
 
 可以使用方括号表示法获取字符串中特定索引的字符，字符串中的第一个字符具有索引 0，依此类推。 在这种情况下，我们想要得到索引为 0 的元素，字符`'I'`被记录。
 
@@ -2577,7 +2577,7 @@ console.log("I want pizza"[0])
 
 ------
 
-## (https://interview.html5.wiki/console.html#_88-输出什么)88.输出什么?
+## (_88-输出什么)88.输出什么?
 
 ------
 
@@ -2596,7 +2596,7 @@ sum(10)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-24)答案: B
+### (答案-b-24)答案: B
 
 您可以将默认参数的值设置为函数的另一个参数，只要另一个参数定义在其之前即可。 我们将值`10`传递给`sum`函数。 如果`sum`函数只接收 1 个参数，则意味着没有传递`num2`的值，这种情况下，`num1`的值等于传递的值`10`。 `num2`的默认值是`num1`的值，即`10`。 `num1 + num2`返回`20`。
 
@@ -2613,7 +2613,7 @@ test(3, 4) // 3 4
 
 ------
 
-## (https://interview.html5.wiki/console.html#_89-输出什么)89.输出什么?
+## (_89-输出什么)89.输出什么?
 
 ------
 
@@ -2635,7 +2635,7 @@ console.log(data)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-29)答案: A
+### (答案-a-29)答案: A
 
 使用`import * as name`语法，我们将`module.js`文件中所有`export`导入到`index.js`文件中，并且创建了一个名为`data`的新对象。 在`module.js`文件中，有两个导出：默认导出和命名导出。 默认导出是一个返回字符串“Hello World”的函数，命名导出是一个名为`name`的变量，其值为字符串`“Lydia”`。
 
@@ -2643,7 +2643,7 @@ console.log(data)
 
 ------
 
-## (https://interview.html5.wiki/console.html#_90-输出什么)90.输出什么?
+## (_90-输出什么)90.输出什么?
 
 ------
 
@@ -2665,7 +2665,7 @@ console.log(typeof member)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-28)答案: C
+### (答案-c-28)答案: C
 
 类是构造函数的语法糖，如果用构造函数的方式来重写`Person`类则将是：
 
@@ -2679,7 +2679,7 @@ function Person() {
 
 ------
 
-## (https://interview.html5.wiki/console.html#_91-输出什么)91.输出什么?
+## (_91-输出什么)91.输出什么?
 
 ------
 
@@ -2696,7 +2696,7 @@ console.log(newList.push(5))
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-10)答案: D
+### (答案-d-10)答案: D
 
 `.push`方法返回数组的长度，而不是数组本身！ 通过将`newList`设置为`[1,2,3].push(4)`，实际上`newList`等于数组的新长度：`4`。
 
@@ -2704,7 +2704,7 @@ console.log(newList.push(5))
 
 ------
 
-## (https://interview.html5.wiki/console.html#_92-输出什么)92.输出什么?
+## (_92-输出什么)92.输出什么?
 
 ------
 
@@ -2726,13 +2726,13 @@ console.log(giveLydiaChocolate.prototype)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-11)答案: D
+### (答案-d-11)答案: D
 
 常规函数，例如`giveLydiaPizza`函数，有一个`prototype`属性，它是一个带有`constructor`属性的对象（原型对象）。 然而，箭头函数，例如`giveLydiaChocolate`函数，没有这个`prototype`属性。 尝试使用`giveLydiaChocolate.prototype`访问`prototype`属性时会返回`undefined`。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_93-输出什么)93.输出什么?
+## (_93-输出什么)93.输出什么?
 
 ------
 
@@ -2754,7 +2754,7 @@ for (const [x, y] of Object.entries(person)) {
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-a-30)答案: A
+### (答案-a-30)答案: A
 
 `Object.entries()`方法返回一个给定对象自身可枚举属性的键值对数组，上述情况返回一个二维数组，数组每个元素是一个包含键和值的数组：
 
@@ -2768,7 +2768,7 @@ for (const [x, y] of Object.entries(person)) {
 
 ------
 
-## (https://interview.html5.wiki/console.html#_94-输出什么)94.输出什么?
+## (_94-输出什么)94.输出什么?
 
 ------
 
@@ -2787,7 +2787,7 @@ getItems(["banana", "apple"], "pear", "orange")
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-12)答案: D
+### (答案-d-12)答案: D
 
 `... args`是剩余参数，剩余参数的值是一个包含所有剩余参数的数组，**并且只能作为最后一个参数**。上述示例中，剩余参数是第二个参数，这是不可能的，并会抛出语法错误。
 
@@ -2801,7 +2801,7 @@ getItems(["banana", "apple"], "pear", "orange")
 
 上述例子是有效的，将会返回数组：`[ 'banana', 'apple', 'orange', 'pear' ]`
 
-## (https://interview.html5.wiki/console.html#_95-输出什么)95.输出什么?
+## (_95-输出什么)95.输出什么?
 
 ------
 
@@ -2827,7 +2827,7 @@ console.log(nums(1, 2))
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-25)答案: B
+### (答案-b-25)答案: B
 
 在 JavaScript 中，我们不必显式地编写分号(`;`)，但是 JavaScript 引擎仍然在语句之后自动添加分号。这称为**自动分号插入**。例如，一个语句可以是变量，或者像`throw`、`return`、`break`这样的关键字。
 
@@ -2842,7 +2842,7 @@ console.log(nums(1, 2))
 
 ------
 
-## (https://interview.html5.wiki/console.html#_96-输出什么)96.输出什么?
+## (_96-输出什么)96.输出什么?
 
 ------
 
@@ -2870,13 +2870,13 @@ console.log(member.name)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-26)答案: B
+### (答案-b-26)答案: B
 
 我们可以将类设置为等于其他类/函数构造函数。 在这种情况下，我们将`Person`设置为`AnotherPerson`。 这个构造函数的名字是`Sarah`，所以新的`Person`实例`member`上的 name 属性是`Sarah`。
 
 ------
 
-## (https://interview.html5.wiki/console.html#_97-输出什么)97.输出什么?
+## (_97-输出什么)97.输出什么?
 
 ------
 
@@ -2896,7 +2896,7 @@ console.log(Object.keys(info))
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-d-13)答案: D
+### (答案-d-13)答案: D
 
 `Symbol`类型是不可枚举的。`Object.keys`方法返回对象上的所有可枚举的键属性。`Symbol`类型是不可见的，并返回一个空数组。 记录整个对象时，所有属性都是可见的，甚至是不可枚举的属性。
 
@@ -2904,7 +2904,7 @@ console.log(Object.keys(info))
 
 ------
 
-## (https://interview.html5.wiki/console.html#_98-输出什么)98.输出什么?
+## (_98-输出什么)98.输出什么?
 
 ------
 
@@ -2926,7 +2926,7 @@ console.log(getUser(user))
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-27)答案: B
+### (答案-b-27)答案: B
 
 `getList`函数接收一个数组作为其参数。 在`getList`函数的括号之间，我们立即解构这个数组。 您可以将其视为：
 
@@ -2944,7 +2944,7 @@ const getUser = user => ({ name: user.name, age: user.age })
 
 ------
 
-## (https://interview.html5.wiki/console.html#_99-输出什么)99.输出什么?
+## (_99-输出什么)99.输出什么?
 
 ------
 
@@ -2961,7 +2961,7 @@ console.log(name())
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-29)答案: C
+### (答案-c-29)答案: C
 
 变量`name`保存字符串的值，该字符串不是函数，因此无法调用。
 
@@ -2971,7 +2971,7 @@ console.log(name())
 
 ------
 
-## (https://interview.html5.wiki/console.html#_10-输出什么)10.. 输出什么?
+## (_10-输出什么)10.. 输出什么?
 
 ------
 
@@ -2989,7 +2989,7 @@ You should${'' && `n't`} see a therapist after so much JavaScript lol`
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-b-28)答案: B
+### (答案-b-28)答案: B
 
 `[]`是一个真值。 使用`&&`运算符，如果左侧值是真值，则返回右侧值。 在这种情况下，左侧值`[]`是一个真值，所以返回`Im`。
 
@@ -2997,7 +2997,7 @@ You should${'' && `n't`} see a therapist after so much JavaScript lol`
 
 ------
 
-## (https://interview.html5.wiki/console.html#_101-输出什么)101.输出什么?
+## (_101-输出什么)101.输出什么?
 
 ```text
 const one = (false || {} || null)
@@ -3014,7 +3014,7 @@ console.log(one, two, three)
 
 **答案**
 
-### (https://interview.html5.wiki/console.html#答案-c-30)答案: C
+### (答案-c-30)答案: C
 
 使用`||`运算符，我们可以返回第一个真值。 如果所有值都是假值，则返回最后一个值。
 
