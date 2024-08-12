@@ -49,49 +49,70 @@
 // };
 // console.log(repeatedSubstringPattern("ababab"));
 
+// /**
+//  * @param {number[][]} grid
+//  * @return {number}
+//  */
+// var islandPerimeter = function (grid) {
+//     var result = 0;
+//     // var arr = [];
+//     for (var i = 0; i < grid.length; i++) {
+//         for (var j = 0; j < grid[i].length; j++) {
+//             if (grid[i][j] === 1) {
+//                 result += 4;
+//                 if (i > 0 && grid[i - 1][j] === 1) {
+//                     result -= 2;
+//                 }
+//                 if (j > 0 && grid[i][j - 1] === 1) {
+//                     result -= 2;
+//                 }
+//             }
+//         }
+//     }
+//     // arr.push(count);
+//     // for (var i = 0; i < arr.length; i++) {
+//     //     switch (arr[i]) {
+//     //         case 0:
+//     //             break;
+//     //         case 1:
+//     //             if (arr[i - 1]) {
+//     //                 result += 3;
+//     //             } else {
+//     //                 result += 2;
+//     //             }
+//     //             if (arr.length === 1) {
+//     //                 result += 4;
+//     //             };
+//     //             break;
+//     //         case 2:
+//     //             result += 5;
+//     //             break;
+//     //         case 3:
+//     //             result += 6;
+//     //             break;
+//     //     }
+//     // }
+//     return result;
+// };
+// console.log(islandPerimeter([[0, 1, 0, 0], [1, 1, 1, 0], [0, 1, 0, 0], [1, 1, 0, 0]]));
+
 /**
- * @param {number[][]} grid
- * @return {number}
+ * @param {string} word
+ * @return {boolean}
  */
-var islandPerimeter = function (grid) {
-    var result = 0;
-    // var arr = [];
-    for (var i = 0; i < grid.length; i++) {
-        for (var j = 0; j < grid[i].length; j++) {
-            if (grid[i][j] === 1) {
-                result += 4;
-                if (i > 0 && grid[i - 1][j] === 1) {
-                    result -= 2;
-                }
-                if (j > 0 && grid[i][j - 1] === 1) {
-                    result -= 2;
-                }
-            }
-        }
-    }
-    // arr.push(count);
-    // for (var i = 0; i < arr.length; i++) {
-    //     switch (arr[i]) {
-    //         case 0:
-    //             break;
-    //         case 1:
-    //             if (arr[i - 1]) {
-    //                 result += 3;
-    //             } else {
-    //                 result += 2;
-    //             }
-    //             if (arr.length === 1) {
-    //                 result += 4;
-    //             };
-    //             break;
-    //         case 2:
-    //             result += 5;
-    //             break;
-    //         case 3:
-    //             result += 6;
-    //             break;
+var detectCapitalUse = function (word) {
+    var bool = false;
+    var arr = word.split("");
+    console.log(arr);
+    // for (var i = 1; i < arr.length; i++){
+    //     if (arr[0] === arr[0].toUpperCase() && arr[i] === arr[i].toUpperCase()) {
+    //         bool = true;
+    //     } else if (arr[0] === arr[0].toUpperCase() && arr[i] === arr[i].toLowerCase()) {
+    //         bool = true;
+    //     } else if (arr[0] === arr[0].toLowerCase() && arr[i] === arr[i].toLowerCase()) {
+    //         bool = true;
     //     }
     // }
-    return result;
+    return bool;
 };
-console.log(islandPerimeter([[0, 1, 0, 0], [1, 1, 1, 0], [0, 1, 0, 0], [1, 1, 0, 0]]));
+console.log(detectCapitalUse("FlaG"));
