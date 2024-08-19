@@ -241,19 +241,75 @@
 // };
 // console.log(reverseStr("abcdefg", 2));
 
+// /**
+//  * @param {number} n
+//  * @return {number}
+//  */
+// var arrangeCoins = function (n) {
+//     var count = 0;
+//     for (var i = 1; i <= n; i++){
+//         n -= i;
+//         if (n < 0) {
+//             break;
+//         }
+//         count++;
+//     }
+//     return count;
+// };
+// console.log(arrangeCoins(5));
+
 /**
+ * @param {number[]} flowerbed
  * @param {number} n
- * @return {number}
+ * @return {boolean}
  */
-var arrangeCoins = function (n) {
-    var count = 0;
-    for (var i = 1; i <= n; i++){
-        n -= i;
-        if (n < 0) {
-            break;
+var canPlaceFlowers = function (flowerbed, n) {
+    var result = false;
+    // var head = 0;
+    // var foot = 0;
+    // for (var i = 0; i < flowerbed.length; i++) {
+    //     if (flowerbed[i] === 1) {
+    //         head = i;
+    //         for (var j = i; j < flowerbed.length; j++) {
+    //             if (flowerbed[j] === 1) {
+    //                 foot = j;
+    //                 var num = foot - head;
+    //                 if (num % 2 === 0) {
+    //                     // if (0 === n - (num - 2) / 2) {
+    //                     //     result = true;
+    //                     //     console.log(num);
+    //                     // };
+    //                     if (0 === n - (num - 2) / 2) {
+    //                         result = true;
+    //                     }
+    //                 } else {
+    //                     if (0 === n - (num - 1) / 2) {
+    //                         result = true;
+    //                         console.log(num);
+    //                     };
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    for (var i = 0; i < flowerbed.length; i++){
+        var count = 0;
+        var length = flowerbed.length;
+
+        for (var i = 0; i < length; i++) {
+            // 当当前位置为0，且前后位置也为0（或是边界情况）
+            if (flowerbed[i] === 0 && (i === 0 || flowerbed[i - 1] === 0) && (i === length - 1 || flowerbed[i + 1] === 0)) {
+                flowerbed[i] = 1;
+                count++;
+                if (count >= n) return true;
+            }
         }
-        count++;
+
+        return count >= n;
+
     }
-    return count;
+    return result;
 };
-console.log(arrangeCoins(5));
+console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1));
+console.log(canPlaceFlowers([1, 0, 0, 0, 1], 2));
+console.log(canPlaceFlowers([1, 0, 0, 0,0, 1], 2));
