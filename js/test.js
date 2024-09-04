@@ -258,58 +258,122 @@
 // };
 // console.log(arrangeCoins(5));
 
-/**
- * @param {number[]} flowerbed
- * @param {number} n
- * @return {boolean}
- */
-var canPlaceFlowers = function (flowerbed, n) {
-    var result = false;
-    // var head = 0;
-    // var foot = 0;
-    // for (var i = 0; i < flowerbed.length; i++) {
-    //     if (flowerbed[i] === 1) {
-    //         head = i;
-    //         for (var j = i; j < flowerbed.length; j++) {
-    //             if (flowerbed[j] === 1) {
-    //                 foot = j;
-    //                 var num = foot - head;
-    //                 if (num % 2 === 0) {
-    //                     // if (0 === n - (num - 2) / 2) {
-    //                     //     result = true;
-    //                     //     console.log(num);
-    //                     // };
-    //                     if (0 === n - (num - 2) / 2) {
-    //                         result = true;
-    //                     }
-    //                 } else {
-    //                     if (0 === n - (num - 1) / 2) {
-    //                         result = true;
-    //                         console.log(num);
-    //                     };
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-    for (var i = 0; i < flowerbed.length; i++){
-        var count = 0;
-        var length = flowerbed.length;
+// /**
+//  * @param {number[]} flowerbed
+//  * @param {number} n
+//  * @return {boolean}
+//  */
+// var canPlaceFlowers = function (flowerbed, n) {
+//     var result = false;
+//     // var head = 0;
+//     // var foot = 0;
+//     // for (var i = 0; i < flowerbed.length; i++) {
+//     //     if (flowerbed[i] === 1) {
+//     //         head = i;
+//     //         for (var j = i; j < flowerbed.length; j++) {
+//     //             if (flowerbed[j] === 1) {
+//     //                 foot = j;
+//     //                 var num = foot - head;
+//     //                 if (num % 2 === 0) {
+//     //                     // if (0 === n - (num - 2) / 2) {
+//     //                     //     result = true;
+//     //                     //     console.log(num);
+//     //                     // };
+//     //                     if (0 === n - (num - 2) / 2) {
+//     //                         result = true;
+//     //                     }
+//     //                 } else {
+//     //                     if (0 === n - (num - 1) / 2) {
+//     //                         result = true;
+//     //                         console.log(num);
+//     //                     };
+//     //                 }
+//     //             }
+//     //         }
+//     //     }
+//     // }
+//     for (var i = 0; i < flowerbed.length; i++){
+//         var count = 0;
+//         var length = flowerbed.length;
 
-        for (var i = 0; i < length; i++) {
-            // 当当前位置为0，且前后位置也为0（或是边界情况）
-            if (flowerbed[i] === 0 && (i === 0 || flowerbed[i - 1] === 0) && (i === length - 1 || flowerbed[i + 1] === 0)) {
-                flowerbed[i] = 1;
-                count++;
-                if (count >= n) return true;
-            }
-        }
+//         for (var i = 0; i < length; i++) {
+//             // 当当前位置为0，且前后位置也为0（或是边界情况）
+//             if (flowerbed[i] === 0 && (i === 0 || flowerbed[i - 1] === 0) && (i === length - 1 || flowerbed[i + 1] === 0)) {
+//                 flowerbed[i] = 1;
+//                 count++;
+//                 if (count >= n) return true;
+//             }
+//         }
 
-        return count >= n;
+//         return count >= n;
 
-    }
-    return result;
-};
-console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1));
-console.log(canPlaceFlowers([1, 0, 0, 0, 1], 2));
-console.log(canPlaceFlowers([1, 0, 0, 0,0, 1], 2));
+//     }
+//     return result;
+// };
+// console.log(canPlaceFlowers([1, 0, 0, 0, 1], 1));
+// console.log(canPlaceFlowers([1, 0, 0, 0, 1], 2));
+// console.log(canPlaceFlowers([1, 0, 0, 0,0, 1], 2));
+
+/*
+* getRandomColor(type) 生成随机颜色
+* @param {string} : type: hex, 16进制; rgb, rgb颜色; rgba, rgba颜色; hsl, hsl颜色; hsla, hsla颜色  (非必须,默认传入的是生成hex颜色)
+* @return {string} 
+*/
+
+// function getRandomColor(type) {
+//     if (type === '' || type === undefined) {
+//         return "#" + Math.random().toString(16).substring(2, 8).padEnd(6, '0');
+//     }
+//     switch (type) {
+//         case 'hex':
+//             return "#" + Math.random().toString(16).substring(2, 8).padEnd(6, '0');
+//         case 'rgb':
+//             return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+//         case 'rgba':
+//             return `rgba(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.random().toFixed(1)})`;
+//         case 'hsl':
+//             return `hsl(${Math.floor(Math.random() * 360)}, ${Math.floor(Math.random() * 101)}%, ${Math.floor(Math.random() * 101)}%)`;
+//         case 'hsla':
+//             return `hsla(${Math.floor(Math.random() * 360)}, ${Math.floor(Math.random() * 101)}%, ${Math.floor(Math.random() * 101)}%, ${Math.random().toFixed(1)})`;
+//         default:
+//             return "#" + Math.random().toString(16).substring(2, 8).padEnd(6, '0');
+//     }
+// }
+// console.log(getRandomColor());
+
+// /*
+// * getRandomNumber() 生成随机数字
+// * @return {number}
+// */
+// const crypto = require('crypto');
+// function getRandomNumber() {
+//     var num = (Math.random().toString().substring(2,10) + Math.random().toString().substring(2)).toString().substring(2, 10);
+//     var date = new Date();
+//     date = date.getTime();
+//     num = (num * date).toString().substring(0, 8);
+//     let random = crypto.getRandomValues(new Uint32Array(1))[0];
+//     num = (num * random).toString().substring(0, 8);
+//     return num;
+// }
+
+// console.log(getRandomNumber());
+
+// /*
+// * getTwoNumberOfSymbols() 获取两个数的符号时候一致
+// * @param {number,number} num1,num2
+// * @return {boolean}
+// */
+// function getTwoNumberOfSymbols(num1 , num2) {
+//     return (num1 ^ num2) >= 0;
+// }
+// console.log(getTwoNumberOfSymbols(3, 3));
+
+// /*
+// * isPowerOf() 判断一个数是不是2的整数幂
+// * @param {number} num
+// * @return {boolean}
+// */
+// function isPowerOf(num) {
+//     return (num & (num - 1)) === 0;
+// }
+// console.log(isPowerOf(-16));

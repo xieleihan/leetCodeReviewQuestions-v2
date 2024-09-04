@@ -1,5 +1,6 @@
 - [题库](ReviewQuestions/题库.md)
 - [面试题](ReviewQuestions/面试题.md)
+- [面试题修订版](ReviewQuestions/面试题和人事的一些常见的题目.md)
 - [面试综合库](ReviewQuestions/面试综合库.md)
 - [模块精选](ReviewQuestions/模块精选.md)
 - [其他文档](otherDocuments.md)
