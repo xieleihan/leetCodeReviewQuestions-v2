@@ -215,6 +215,12 @@ git checkout ~[feature]
 git branch -d ~[branch name]
 ```
 
+### 5. 将文件从暂存区撤销回工作区
+
+```bash
+git restore --staged .
+```
+
 
 
 ## ssh配置
