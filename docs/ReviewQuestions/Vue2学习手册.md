@@ -154,6 +154,117 @@ watch:{
 deep:true //开启深度
 ```
 
+属性过滤:
+
+> 针对属性做一些格式化的操作或保留指定格式数据的操作
+>
+> ```javascript
+> // 需要在上面的容器里使用管道
+> // {{xxx | yyy}} xxx:代表要过滤前的属性,yyy是过滤的方法
+> // 设置属性过滤
+> new Vue({
+>     // 前面配置略
+>     filter:{
+>         //过滤器名称: value参数是上面管道传递的参数
+>         yyy(value){
+>             return fn() || 方法; // 返回你想返回的
+>         }
+>     }
+> })
+> ```
+
+### 事件绑定
+
+事件修饰符:
+
+`@keydown.enter='fn()'`表示按下回车后执行函数的意思
+
+`@click.prevent`表示阻止默认行为
+
+### 组件
+
+> 组件:项目的一个模块/功能.(可以重复使用)
+>
+> 步骤:
+>
+> 1. 定义组件
+> 2. 注册组件
+> 3. 使用组件
+
+组件有两种:`全局组件`和`局部组件`
+
+全局组件:
+
+```javascript
+// 组件:HTML+CSS+JavaScript组件的功能模块.相当于小型的Vue示例
+//data只能返回的是函数,不能是对象,因为要重复的使用,所以必须函数
+// 标签名不能作为组件名称 例如:header,nav,footer,main,aside等这些标签名称
+
+// 语法:Vue.component(组件名称,选项对象)
+Vue.component('Search',{
+    data(){
+        return{
+            msg:'消息',
+        }
+    },
+    template:`
+    	<h3>{{msg}}</h3>
+    `
+})
+```
+
+### 生命周期
+
+![](https://v2.cn.vuejs.org/images/lifecycle.png)
+
+ **四个阶段**:
+
+1. *创建阶段*
+2. *挂载阶段*
+3. *更新阶段*
+4. *销毁阶段*
+
+**八个钩子**:
+
+1. *创建阶段*:`beforeCreate`,`created`
+2. *挂载阶段*:`beforeMount`,`mounted`
+3. *更新阶段*:`beforeUpdate`,`updated`
+4. *销毁阶段*:`beforeDestroy`,`destoyed`
+
+### 过渡/动画
+
+> 可以直接使用CSS3的`tranforms`或者`animation`
+
+也可以使用Vue的组件:`transition`(内置组件)
+
+![](https://v2.cn.vuejs.org/images/transition.png)
+
+要搭配`style.css`
+
+```css
+.v-enter{
+    
+}
+.v-enter-to{
+    
+}
+.v-enter-active{
+    
+}
+
+.v-leave{
+    
+}
+.-v-leave-to{
+    
+}
+.v-leave-active{
+    
+}
+```
+
+如果有重复出现的`transition`,要起一个`name`
+
 
 
 ## 脚注
