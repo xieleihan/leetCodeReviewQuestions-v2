@@ -213,6 +213,157 @@ Vue.component('Search',{
 })
 ```
 
+局部组件:
+
+```javascript
+// 在new实例对象的时候声明
+// 荔枝:
+new Vue({
+    el:'#app',
+    // 局部组件
+    commponents:{
+        // 组件名:
+        xxx:{
+            data(){},
+            template:``
+        }
+    }
+})
+```
+
+### 组件传值
+
+#### 父组件传值给子组件
+
+```javascript
+// 父传子
+// 1. 子组件Child中的props选项中定义属性
+// 2. 在父组件模版中使用子组件<Child :属性='值'></Child>
+// 初始化
+const vm = new Vue({
+    el: '#app',
+    // 注册组件
+    components:{
+        'Parent':{
+            template:``,
+            components:{
+                'Child':{
+                    // 自定义属性接收父组件传递的值
+                    // props:['num']
+                    props:{
+                        num:{
+                            type:Number // 定义数据类型
+                        }
+                    },
+                    template:``
+                }
+            }
+        }
+    }
+})
+```
+
+#### 子组件传值给父组件
+
+```javascript
+// 子组件传值给父组件
+// 是反向传值,需要 事件 来实现
+// 步骤:
+// 1. 在子组件中通过编写this.$emit(xxx,数据)自定义事件的方法(send)
+// 2. 在子组件中调用这个send,可以通过点击事件或者使用生命周期的方式来实现
+// 3. 在父组件中使用自定义事件 例如: <Child @xxx='recv'></Child>
+// 4. 父组件中定义这个方法recv 用于接收子组件传递的值
+// 下面是一个示例
+// 初始化
+const vm = new Vue({
+    // 设置挂载点
+    el: '#app',
+    // 注册组件
+    components:{
+        'parent':{
+            template:``,
+            data(){
+                return num: ''
+            },
+            methods:{
+                recv(value){
+                    // 定义方法接收子组件传递的值
+                    this.num = value;
+                }
+            },
+            components:{
+                "Child":{
+                    template:``,
+                    methods:{
+                        // 利用this.$emit()这个方法发送数据给父组件
+                        send(){
+                            // 定义时间名称
+                            // this.$emit(事件名称,值)
+                            this.$emit("xxx",xxxxxxx)
+                        }
+                    },
+                    // 初始化
+                    created(){
+                        // 调用send方法
+                        this.send();
+                    }
+                }
+            }
+        }
+    }
+})
+```
+
+#### 兄弟组件传值
+
+```javascript
+// 步骤:
+// 1.创建一个Vue示例作为通信桥梁
+// 2.利用这个示例调用$emit自定义事件的名称
+// 3.利用这个实例调用$on监听事件触发
+// 4.通过监听事件触发,获取传递的值
+
+// 创建通信的桥梁
+const brigde = new Vue();
+// 初始化
+new Vue({
+    el: '#app',
+    components:{
+        // 组件一
+        "Brother":{
+            template:``,
+            methods:{
+                sendfn(){
+                    brigde.$emit('xxxx',xxxxx)
+                }
+            },
+            // 生命周期调用
+            created(){
+                // 发送数据
+                setTimeout(()=>{
+                    this.sendfn();
+                },10)
+            }
+        },
+        'Sister':{
+            template:``,
+            data(){
+                return{
+                    num: ''
+                }
+            },
+            created(){
+                brigde.$on('xxxx',(value)=>{
+                    this.num = value;
+                })
+            }
+        }
+    }
+})
+```
+
+
+
 ### 生命周期
 
 ![](https://v2.cn.vuejs.org/images/lifecycle.png)
@@ -264,6 +415,80 @@ Vue.component('Search',{
 ```
 
 如果有重复出现的`transition`,要起一个`name`
+
+```html
+<transition>
+	<组件 v-if='布尔值'></组件>
+</transition>
+```
+
+### 混入(代码复用)
+
+```javascript
+// 定义对象(组件A和组件B都可以使用以下的选项)
+// 混入对象
+const options = {
+    data(){
+        return{
+            
+        }
+    },
+    methods:{
+        show(){
+            
+        }
+    }
+}
+new Vue({
+    el: '#app',
+    components:{
+        "MyCompa":{
+            // 当组件和混入对象含有同名选项,这些选项将以恰当的方式进行合并
+            // 比如,数据对象在内部会进行递归合并,并发生冲突的时候以组件数据优先
+            mixins:[options],
+            data(){
+                return {}
+            },
+            template:``
+        },
+        "MyCompb":{
+            mixins:[options],
+            data(){
+                return {
+                    
+                }
+            },
+            template:``
+        }
+    }
+})
+```
+
+### 自定义指令
+
+```javascript
+const vm = new Vue({
+    el: '#app',
+    // 自定义指令
+    directives:{
+        // 定义一个名,使用的时候,请在前面加上v-xxx
+        // 比如我定义一个名,叫color,使用的时候,使用v-color
+        color(el,binding){
+            // el是dom对象
+            // binding是参数对象
+            // 比如我们可以这样
+            el.style[`backgroundColor`] = binding.value
+        },
+        
+        xxx(el,binding){
+            // 也可以结构赋值
+            let {a,b} = binding.modifiers;
+            let val = binding.value;
+        }
+    }
+})
+// 主要给程序员提供扩展dom操作方法
+```
 
 
 
