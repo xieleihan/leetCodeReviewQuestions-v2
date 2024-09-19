@@ -368,7 +368,15 @@ new Vue({
 
 ![](https://v2.cn.vuejs.org/images/lifecycle.png)
 
- **四个阶段**:
+> 是指的是Vue程序或者组件从创建到销毁的这个过程
+
+> 不同阶段可以调用不同的钩子函数
+>
+> 初始化可以在created(){}
+>
+> 操作DOM可以在mounted(){}
+
+**四个阶段**:
 
 1. *创建阶段*
 2. *挂载阶段*
@@ -488,6 +496,74 @@ const vm = new Vue({
     }
 })
 // 主要给程序员提供扩展dom操作方法
+```
+
+### 面试题
+
+#### `v-show`和`v-if`区别
+
+当是`false`两者都不会占据页面位置
+
+但是两者的控制手段不同,编译过程不同,编译条件不同
+
+`v-show`隐藏是为该元素添加`css:display:none;`,dom元素还是存在于dom文档流里,但是`v-if`是让dom元素直接整个删除或删除
+
+`v-show`原理:
+
+```javascript
+// https://github.com/vuejs/vue-next/blob/3cd30c5245da0733f9eb6f29d220f39c46518162/packages/runtime-dom/src/directives/vShow.ts
+export const vShow: ObjectDirective<VShowElement> = {
+  beforeMount(el, { value }, { transition }) {
+    el._vod = el.style.display === 'none' ? '' : el.style.display
+    if (transition && value) {
+      transition.beforeEnter(el)
+    } else {
+      setDisplay(el, value)
+    }
+  },
+  mounted(el, { value }, { transition }) {
+    if (transition && value) {
+      transition.enter(el)
+    }
+  },
+  updated(el, { value, oldValue }, { transition }) {
+    // ...
+  },
+  beforeUnmount(el, { value }) {
+    setDisplay(el, value)
+  }
+}
+```
+
+`v-if`原理:
+
+```javascript
+// https://github.com/vuejs/vue-next/blob/cdc9f336fd/packages/compiler-core/src/transforms/vIf.ts
+export const transformIf = createStructuralDirectiveTransform(
+  /^(if|else|else-if)$/,
+  (node, dir, context) => {
+    return processIf(node, dir, context, (ifNode, branch, isRoot) => {
+      // ...
+      return () => {
+        if (isRoot) {
+          ifNode.codegenNode = createCodegenNodeForBranch(
+            branch,
+            key,
+            context
+          ) as IfConditionalExpression
+        } else {
+          // attach this branch's codegen node to the v-if root.
+          const parentCondition = getParentCondition(ifNode.codegenNode!)
+          parentCondition.alternate = createCodegenNodeForBranch(
+            branch,
+            key + ifNode.branches.length - 1,
+            context
+          )
+        }
+      }
+    })
+  }
+)
 ```
 
 
