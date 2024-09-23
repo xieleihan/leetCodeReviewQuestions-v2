@@ -390,6 +390,160 @@ new Vue({
 3. *更新阶段*:`beforeUpdate`,`updated`
 4. *销毁阶段*:`beforeDestroy`,`destoyed`
 
+#### 详解
+
+世间万物都有自己生命周期⏱，vue也有这一特点，vue的生命周期可以简单分为四个阶段：创建阶段，挂载阶段，运行阶段，销毁阶段。
+
+每个 Vue 实例在被创建时都要经过一系列的初始化过程——例如，需要设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等。
+
+> ❝
+>
+> 在这个过程中会运行一些叫做生命周期钩子的函数，这给了用户在不同阶段添加自己的代码的机会。
+>
+> ❞
+
+每个阶段都有两个生命周期钩子函数。
+
+- 创建阶段--beforeCreate，created
+- 挂载阶段--beforeMount，mounted
+- 运行阶段--beforeUpdate，updated
+- 销毁阶段--beforeDestroy，destroyed
+
+> ❝
+>
+> 所有的生命周期钩子自动绑定 this 上下文到实例中，因此你可以访问数据，对 property 和方法进行运算。这意味着你不能使用箭头函数来定义一个生命周期方法 (例如 created: () => this.fetchTodos())。这是因为箭头函数绑定了父上下文，因此 this 与你期待的 Vue 实例不同，this.fetchTodos 的行为未定义。
+>
+> ❞
+
+下面来分别介绍一下这几个阶段 Vue 帮我们做了什么。然后我们又能在不同阶段做些什么。
+
+## 创建阶段
+
+创建阶段可以看做一个vue实例生命的开始，可以把这一阶段比作组件从受精卵到胚胎的过程，这个阶段 vue组件开始初始化，vue开始观察数据，这个阶段有 beforeCreate 和 created 两个生命周期钩子函数。
+
+### beforeCreate
+
+`beforeCreate`：是new Vue()之后触发的第一个钩子，此时 data、methods、computed以及watch上的数据和方法还未初始化，都不能被访问。
+
+> ❝
+>
+> 在实例初始化之后，数据观测 (data observer) 和 event/watcher 事件配置之前被调用。
+>
+> ❞
+
+### created
+
+`created`：在实例创建完成后被立即调用，此时已完成以下的配置：数据观测 (data observer)，property 和方法的运算，watch/event 事件回调。然而，挂载阶段还没开始，$el property 目前尚不可用，也就是可以使用数据，更改数据，在这里更改数据不会触发updated函数。
+
+可以做什么：
+
+- data 和 methods 都已经被初始化好了，如果要调用 methods 中的方法，或者操作 data 中的数据，最早可以在这个阶段中操作。
+- 无法与Dom进行交互，如果非要想，可以通过vm.$nextTick来访问Dom。
+- 异步数据的请求适合在 created 的钩子中使用，例如数据初始化。
+
+## 挂载阶段
+
+这个阶段是vue实例的出生阶段，这个阶段将实现 DOM 的挂载，这标志着我们可以在浏览器里中看到页面了。
+
+### beforeMount
+
+`beforeMount`：发生在挂载之前，在这之前 template 模板已导入渲染函数编译。此时虚拟Dom已经创建完成，即将开始渲染。在这一阶段也可以对数据进行更改，不会触发updated。
+
+> ❝
+>
+> 执行到这个钩子的时候，在内存中已经编译好了模板了，但是还没有挂载到页面中，此时，页面还是旧的。
+>
+> ❞
+
+### mounted
+
+`mounted`：在挂载完成后发生，此时真实的Dom挂载完毕，数据完成双向绑定，可以访问到Dom节点，使用$refs属性对Dom进行操作。
+
+> ❝
+>
+> 执行到这个钩子的时候，就表示vue实例已经初始化完成了。此时组件脱离了创建阶段，进入到了运行阶段。 如果我们想要通过插件操作页面上的DOM节点，最早可以在和这个阶段中进行。
+>
+> ❞
+
+「注意」：mounted 不会保证所有的子组件也都一起被挂载。如果你希望等到整个视图都渲染完毕，可以在 mounted 内部使用 vm.$nextTick。
+
+```javascript
+mounted: function () {
+  this.$nextTick(function () {
+    // Code that will run only after the
+    // entire view has been rendered
+  })
+}
+```
+
+## 运行阶段
+
+vue实例不可能一直保持不变，就像人随着年龄的增长，形体会发生变化。当vue实例中的数据发生改变时，DOM 也会发生变化。
+
+### beforeUpdate
+
+`beforeUpdate`：发生在更新之前，也就是响应式数据发生更新，虚拟dom重新渲染之前被触发，你可以在当前阶段进行更改数据，不会造成重新渲染,但会再次触发当前钩子函数。
+
+### updated
+
+`updated`：发生在更新完成之后，此时 Dom 已经更新。现在可以执行依赖于 DOM 的操作。然而在大多数情况下，你应该避免在此期间更改状态。如果要相应状态改变，最好使用计算属性或 watcher 取而代之。最好不要在此期间更改数据，因为这可能会导致无限循环的更新。
+
+「注意」：updated 不会保证所有的子组件也都一起被重绘。如果你希望等到整个视图都重绘完毕，可以在 updated 里使用 vm.$nextTick。
+
+```javascript
+updated: function () {
+  this.$nextTick(function () {
+    // Code that will run only after the
+    // entire view has been re-rendered（代码将在整个视图重新渲染后执行）
+  })
+}
+```
+
+## 销毁阶段
+
+vue实例的消亡阶段。实例还可以被使用，直到destroyed(),我们可以最后做一些想做的事情。
+
+### beforeDestroy
+
+`beforeDestroy`：发生在实例销毁之前，在这期间实例完全可以被使用，我们可以在这时进行善后收尾工作，比如清除计时器。
+
+> ❝
+>
+> Vue实例从运行阶段进入到了销毁阶段，这个时候上所有的 data 和 methods ， 指令， 过滤器 ……都是处于可用状态。还没有真正被销毁。
+>
+> ❞
+
+### destroyed
+
+`destroyed`：发生在实例销毁之后，这个时候只剩下了dom空壳。组件已被拆解，数据绑定被卸除，事件监听器被移除，所有子实例也统统被销毁。
+
+> ❝
+>
+> 在大多数场景中你不应该调用这个方法。最好使用 v-if 和 v-for 指令以数据驱动的方式控制子组件的生命周期。
+>
+> ❞
+
+| 生命周期      | 实例处于阶段 | 描述                                                         | 能否获取到`el(this.el)` | 能否获取到`data(this.$el)` | 能否使用`methods`中的方法 `(this.xxx())` |
+| ------------- | ------------ | ------------------------------------------------------------ | ----------------------- | -------------------------- | ---------------------------------------- |
+| beforeCreate  | 创建前       | 实例已初始化，但数据观测，watch/event 事件回调还未配置       | 获取不到                | 不能                       | 不能                                     |
+| created       | 创建后       | 已完成如下配置，数据观测 (data observer)，property 和方法的运算，watch/event 事件回调 | 获取不到                | 能                         | 能                                       |
+| beforeMount   | 挂载前       | dom已初始化，但并未挂载和渲染                                | 能                      | 能                         | 能                                       |
+| mounted       | 挂载后       | dom已完成挂载和渲染                                          | 能                      | 能                         | 能                                       |
+| beforeUpdate  | 更新前       | 数据已改变，但dom为更新                                      | 能                      | 能                         | 能                                       |
+| updated       | 更新后       | dom已更新                                                    | 能                      | 能                         | 能                                       |
+| beforeDestroy | 销毁前       | 实例销毁前，实例仍然可用                                     | 能                      | 能                         | 能                                       |
+| destroyed     | 销毁后       | 实例已销毁，所有指令被解绑，事件监听器被移除，子实例都被销毁 | 能                      | 能                         | 能                                       |
+
+
+
+
+
+
+
+
+
+
+
 ### 过渡/动画
 
 > 可以直接使用CSS3的`tranforms`或者`animation`
@@ -666,6 +820,77 @@ export const transformIf = createStructuralDirectiveTransform(
     })
   }
 )
+```
+
+## 开发项目中移动端适配
+
+### 步骤
+
+```text
+## 移动端适配和加后缀
+一、amfe-flexible
+1. 首先把安装amfe-flexible包
+npm i  amfe-flexible -S
+
+2. 配置 postcss-pxtorem
+postcss-pxtorem会将px转换为rem
+rem单位用于适配不同宽度的屏幕
+根据标签的font-size值来计算出结果
+npm install --save postcss-pxtorem@5.1.1 
+
+3. 在项目入口文件main.js 中引入amfe-flexible
+import 'amfe-flexible'
+
+4. 在根目录的index.html 的头部加入手机端适配的meta代码
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+5. 新建postcss.config.js文件
+Vue CLI 内部使用了 PostCSS
+默认开启了autoprefixer
+配置autoprefixer (浏览器前缀规则)  自动生成前缀 
+browserslist 字段 postcss.config.js
+```
+
+`postcss.config.js`配置(已经通过ESlist标准模式)
+
+```javascript
+module.exports = {
+  module: {
+    rules: [{
+      test: /\.vue$/,
+      use: 'vue-loader'
+    }, {
+      test: /\.less$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'less-loader'
+      ]
+    }, {
+      test: /\.css$/,
+      use: [
+        'style-loader',
+        'css-loader'
+      ]
+    }]
+  },
+  plugins: {
+    autoprefixer: {
+      overrideBrowserslist: [
+        'Android 4.1',
+        'iOS 7.1',
+        'Chrome > 31',
+        'ff > 31',
+        'ie >= 8'
+      ]
+    },
+    'postcss-pxtorem': {
+      rootValue: 37.5,
+      propList: ['*']
+    }
+  }
+}
+
 ```
 
 
