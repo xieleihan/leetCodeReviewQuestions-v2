@@ -893,6 +893,126 @@ module.exports = {
 
 ```
 
+## VueX(状态库)
+
+### 概念
+
+> VueX是一个专门为`Vue.js`应用程序开发的状态管理模式+库.它采用集中式存储管理应用的所有组件的状态,并以相应的规则保证状态是一个可以预测的方式发生变化
+
+数据状态
+
+1. 读取数据
+2. 新增数据
+3. 修改数据
+4. 删除数据
+
+可以不通过组件传值的方式操作这些数据
+
+功能
+
+### **state(存储数据的对象)**
+
+> 类似组件的data存储数据
+>
+> 整个项目或者程序所需的数据可以存放在这个对象
+>
+> 可以通过以下拿到数据
+
+```javascript
+./store/index.js
+export default   new Vuex.Store({
+      state: {
+                 xxx: "hello world"
+       }
+      ....
+})
+```
+
+```javascript
+demo.vue
+<script>
+import { mapState }  from "vuex"
+export default {
+    computed: {
+     ... mapState(['xxx'])
+    },
+    created(){
+         this.$store.state.xxx
+    },
+    methods: {
+        this.$store.commit('changeXxx','你好 世界');// 执行状态库下的mutation
+        this.$store.dispatch('submitChangeXxx','你好,明天')// 执行状态库下的action
+    }
+}
+</script>
+<template>
+<div>
+  <p> {{this.$store.state.xxx}}</p>
+   <p> {{$store.state.xxx}}</p>
+  <p> {{xxx}}</p>
+  <p> {{$store.getters.num}}</p>
+</div>
+</template>
+```
+
+### **getters(只存储数据不写数据)**
+
+> 类似组件中的computed,在这个选项中可以编写函数返回计算结果
+
+```javascript
+getters: {
+           num(){  return 100 }
+}
+```
+
+### **mutations(是修改state对象中数据的行为)**
+
+> 通过mutations选项添加的方法,修改state对象的数据,可以做响应式
+>
+> 数据发生变化了,更新视图
+
+```javascript
+mutatios: {
+        changeXxx(state,value){
+              // ...  业务逻辑 
+             state.xxx = value;
+       }
+}
+```
+
+### **actions(用于提交mutation,异步修改state)**
+
+> actions类似于mutation,不同地方在于actions提交的是mutation,而不是直接变更状态
+>
+> action可以包含任何异步操作
+
+```javascript
+actions:  {
+     submitChangeXxx($store,value) {
+            // ...  业务逻辑 
+            $store.commit('changeXxx',value)
+      }
+} 
+```
+
+### **modules(划分数据模块)**
+
+> 把整个项目所需的数据拆分模块
+
+```javascript
+modules: {
+   // 详情模块
+   detail: {
+           namespaced: true,
+           content: ""
+    },
+    //个人中心模块,
+     my: {
+           namespaced: true,
+     }
+}
+```
+
 
 
 ## 脚注
