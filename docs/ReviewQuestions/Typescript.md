@@ -801,3 +801,100 @@ szyinfo({
 > TypeScript 作为 JavaScript 的超集，在开发过程中不可避免要引用其他第三方的 JavaScript 的库。虽然通过直接引用可以调用库的类和方法，但是却无法使用TypeScript 诸如类型检查等特性功能。为了解决这个问题，需要将这些库里的函数和方法体去掉后只保留导出类型声明，而产生了一个描述 JavaScript 库和模块信息的声明文件。通过引用这个声明文件，就可以借用 TypeScript 的各种特性来使用库文件了。
 >
 > 例如我们要在ts中引入`jQuery`文件
+
+## ts枚举
+
+> 枚举就是**定义常量**
+>
+> ```typescript
+> enum Direction{
+>     Up = 38,
+>     Down = 40,
+>     left = 37,
+>     right = 39
+> }
+> 
+> // 后续使用
+> console.log(Direction.Down)
+> 
+> enum Api{
+>     search: `/api/search`,
+>     ...
+> }
+> ```
+
+## ts泛型
+
+> 在未定义这个数据的类型前,可以使用泛型做替代
+>
+> ```typescript
+> // 定义函数 传递什么数据进来就返回什么类型的数据
+> function foo<T>(a:T):T{
+>     return a.replace(/\s/g,'')
+> }
+> // 使用
+> foo<string>('hhh hhh');
+> ```
+>
+> 
+
+## ts类
+
+> 类:一种抽象的对象
+>
+> 因为`Typescript`也是一种面向对象的编程语言
+>
+> 一般通过接口`interface`来规范这个类
+>
+> ```typescript
+> interface Opt {
+>     name: string,
+>     age: number
+> }
+> 
+> class Person implements Opt {
+>     name: string;
+>     age: number;
+> 
+>     constructor(name: string, age: number) {
+>         this.name = name;
+>         this.age = age;
+>     }
+> 
+>     sayHello() {
+>         console.log("打印:", this.name, this.age);
+>     }
+> }
+> 
+> const p1 = new Person("张三", 18);
+> p1.sayHello();
+> ```
+>
+> ### 修饰符
+>
+> - `public` 公共的(可以在类的内部,外部,子类等使用)
+> - `private` 私有的(可以在类内部使用)
+> - `protected` 受保护的(可以在类的内部或者子类使用)
+>
+> ### 抽象类
+>
+> ```typescript
+> // 在class关键字之前,添加了abstract关键字修饰
+> // ◈抽象类不能用于实例化(重点)
+> abstract class User{
+>     account:string;
+>     password:string;
+> }
+> 
+> 但是,抽象类可以被继承
+> class Student extends User{
+>     
+> }
+> class Teather = extends User{
+>     
+> }
+> // 下面可以new了
+> const s1 = new Student();
+> ```
+>
+> 
