@@ -221,6 +221,34 @@ git branch -d ~[branch name]
 git restore --staged .
 ```
 
+### 6. push后删除自己不要push的文件的命令
+
+```sh
+git reset --soft HEAD~1
+```
+
+上面的命令是让提交的记录往后一个版本
+
+然后再强行推送
+
+```sh
+git push origin main --force 
+```
+
+### 7. 移除已经追踪的文件命令
+
+```sh
+git rm --cached [serve/.env]
+```
+
+`[]`里面是可选参数,上面的命令表示移除掉追踪文件
+
+然后执行一次commit命令
+
+再push
+
+
+
 
 
 ## ssh配置
