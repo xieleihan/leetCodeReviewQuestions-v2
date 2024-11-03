@@ -5,3 +5,4 @@
 - [排序算法](otherDocuments/排序算法大全.md)
 - [ASCII码表](otherDocuments/ASCII码表.md)
 - [WebAssembly](otherDocuments/WebAssembly.md)
+- [鸿蒙上传图片功能实现](otherDocuments/鸿蒙实现上传图片功能.md)
