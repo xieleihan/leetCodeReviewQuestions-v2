@@ -212,3 +212,4 @@ shopify theme dev --store {your_store_name}
 
 - `**range**`: 提供一个滑动条选择器。
 
+注意,在`Snippets`中,不用`schema`
