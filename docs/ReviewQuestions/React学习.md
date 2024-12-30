@@ -131,4 +131,53 @@
 	</html>
 	```
 
-	
+## 父子传值
+
+### 子传父
+
+> 父组件编写一个方法,直接传递给子组件
+>
+> 子组件通过该方法传递参数即可
+
+子组件
+
+```tsx
+function Child({onToggleClick}){
+	return (
+		<>
+			<div
+				onClick={
+					()=>{
+						onToggleClick([参数])
+					}
+				}
+			></div>
+		</>
+	)
+}
+```
+
+父组件
+
+```tsx
+function father(){
+    
+    const handleToggleClick= (newState)=>{
+        console.log("这是从子组件传递过来的值", newState);
+    }
+    
+    return (
+    	<>
+        	<Chilld onToggleClick={handleToggleClick}></Chilld>
+        </>
+    );
+}
+```
+
+### 父传子
+
+> 在父组件中直接把数据存储在子组件属性里
+>
+> 在子组件添加参数(函数形参) props,父组件传值的数据就存储在这个props对象里面
+>
+> 通过props.xxx可以获取传递的数据
