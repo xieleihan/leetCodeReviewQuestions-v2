@@ -1007,3 +1007,16 @@ This is a health potion!
 - `**range**`: 提供一个滑动条选择器。
 
 注意,在`Snippets`中,不用`schema`
+
+## shopify内部视频播放
+
+```liquid
+ {% assign shopify_video = section.settings.video.sources | where: 'format', 'mp4' | first %}
+          {{ shopify_video }}
+          <video controls src="{{ shopify_video.url }}"></video>
+```
+
+有效,唯一
+
+
+
