@@ -49,7 +49,9 @@
    >
    > Essential Plan：每月 $9，支持更多高级功能。
    >
-   > Pro Plan：每月 $199，支持更多推送数量和个性化设置。
+   > Pro Plan：custom，支持更多推送数量和个性化设置。
+   >
+   > ![](./webpush2.png)
 
    >  适用场景
    >
@@ -65,9 +67,11 @@
    >
    > Esseential Plan: 每月 $61，支持更多设备和推送数量
    >
-   > Pro Plan:每月 $199，支持更多的个性化推送、分组和报告分析
+   > Pro Plan:每月 $946-custom，支持更多的个性化推送、分组和报告分析
    >
    > Enterprise Plan: 定制化价格，适合大规模企业
+   >
+   > ![image-20250224110550864](./webpush1.png)
    >
    > 适用场景
    >
