@@ -377,3 +377,59 @@
 //     return (num & (num - 1)) === 0;
 // }
 // console.log(isPowerOf(-16));
+
+// /**
+//  * @param {string} s
+//  * @param {string} t
+//  * @return {character}
+//  */
+// var findTheDifference = function (s, t) {
+//     let obj = {}
+//     let copyObj = {}
+
+//     for (let i = 0; i < s.length; i++) {
+//         if (obj[s[i]]) {
+//             obj[s[i]]++;
+//         } else {
+//             obj[s[i]] = 1;
+//         }
+//     }
+//     for (let i = 0; i < t.length; i++) {
+//         if (copyObj[t[i]]) {
+//             copyObj[t[i]]++
+//         } else {
+//             copyObj[t[i]] = 1
+//         }
+//     }
+
+//     for (let key in copyObj) {
+//         if (!obj[key] || copyObj[key] !== obj[key]) {
+//             return key
+//         }
+//     }
+// };
+
+// /**
+//  * @param {string} s
+//  * @param {string} t
+//  * @return {boolean}
+//  */
+// var isSubsequence = function (s, t) {
+//     let result = true;
+
+//     for (let i = 0; i < s.length; i++){
+//         for (let j = 0; j < t.length; j++) {
+//             if(t.length === 0) {
+//                 return false;
+//             }
+//             if (s[i] === t[j]) {
+//                 t = t.slice(j + 1);
+//                 break;
+//             } else if (j === t.length - 1) {
+//                 return false;
+//             }
+//         }
+//     }
+
+//     return result
+// };
