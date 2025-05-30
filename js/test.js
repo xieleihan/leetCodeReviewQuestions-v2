@@ -433,3 +433,71 @@
 
 //     return result
 // };
+
+// /**
+//  * @param {string} s
+//  * @return {number}
+//  */
+// var longestPalindrome = function (s) {
+//     // 重新排列后的回文串,使用对象的方式
+//     // 当字符出现偶数次时，可以成对放置在回文串的两端
+//     // 当字符出现奇数次时，可以放置在回文串的中间
+//     let obj = {};
+//     for (let i = 0; i < s.length; i++) {
+//         if (obj[s[i]]) {
+//             obj[s[i]]++;
+//         } else {
+//             obj[s[i]] = 1;
+//         }
+//     }
+
+//     let length = 0;
+//     let hasOdd = false; // 标记是否存在奇数次的字符
+
+//     for (let key in obj) {
+//         if (obj[key] % 2 === 0) {
+//             length += obj[key]; // 偶数次字符直接加到长度
+//         } else {
+//             if (!hasOdd) {
+//                 length += obj[key]; // 奇数次字符减一后加到长度
+//                 hasOdd = true; // 标记存在奇数次字符
+//             }
+//         }
+//     }
+
+    
+//     return length;
+// };
+
+// console.log(longestPalindrome("abccccdd")); // 输出 7
+// console.log(longestPalindrome("a")); // 输出 1
+
+/**
+ * @param {number} n
+ * @return {string[]}
+ */
+var fizzBuzz = function (n) {
+    let result = [];
+
+    for (let i = 0; i < n; i++){
+        if((i + 1) % 3 === 0 && (i + 1) % 5 === 0) {
+            result.push("FizzBuzz");
+            
+        }
+        if((i + 1) % 3 === 0 && (i + 1) % 5 !== 0) {
+            result.push("Fizz");
+        }
+        if((i + 1) % 3 !== 0 && (i + 1) % 5 === 0) {
+            result.push("Buzz");
+        }
+        if((i + 1) % 3 !== 0 && (i + 1) % 5 !== 0) {
+            result.push((i + 1).toString());
+        }
+    }
+
+    return result;
+};
+
+console.log(fizzBuzz(15)); // 输出 ["1", "2", "Fizz", "4", "Buzz", "Fizz", "7", "8", "Fizz", "Buzz", "11", "Fizz", "13", "14", "FizzBuzz"]
+console.log(fizzBuzz(5)); // 输出 ["1", "2", "Fizz", "4", "Buzz"]
+console.log(fizzBuzz(3)); // 输出 ["1", "2", "Fizz"]
