@@ -472,32 +472,56 @@
 // console.log(longestPalindrome("abccccdd")); // 输出 7
 // console.log(longestPalindrome("a")); // 输出 1
 
-/**
- * @param {number} n
- * @return {string[]}
- */
-var fizzBuzz = function (n) {
-    let result = [];
+// /**
+//  * @param {number} n
+//  * @return {string[]}
+//  */
+// var fizzBuzz = function (n) {
+//     let result = [];
 
-    for (let i = 0; i < n; i++){
-        if((i + 1) % 3 === 0 && (i + 1) % 5 === 0) {
-            result.push("FizzBuzz");
+//     for (let i = 0; i < n; i++){
+//         if((i + 1) % 3 === 0 && (i + 1) % 5 === 0) {
+//             result.push("FizzBuzz");
             
-        }
-        if((i + 1) % 3 === 0 && (i + 1) % 5 !== 0) {
-            result.push("Fizz");
-        }
-        if((i + 1) % 3 !== 0 && (i + 1) % 5 === 0) {
-            result.push("Buzz");
-        }
-        if((i + 1) % 3 !== 0 && (i + 1) % 5 !== 0) {
-            result.push((i + 1).toString());
-        }
-    }
+//         }
+//         if((i + 1) % 3 === 0 && (i + 1) % 5 !== 0) {
+//             result.push("Fizz");
+//         }
+//         if((i + 1) % 3 !== 0 && (i + 1) % 5 === 0) {
+//             result.push("Buzz");
+//         }
+//         if((i + 1) % 3 !== 0 && (i + 1) % 5 !== 0) {
+//             result.push((i + 1).toString());
+//         }
+//     }
 
-    return result;
-};
+//     return result;
+// };
 
-console.log(fizzBuzz(15)); // 输出 ["1", "2", "Fizz", "4", "Buzz", "Fizz", "7", "8", "Fizz", "Buzz", "11", "Fizz", "13", "14", "FizzBuzz"]
-console.log(fizzBuzz(5)); // 输出 ["1", "2", "Fizz", "4", "Buzz"]
-console.log(fizzBuzz(3)); // 输出 ["1", "2", "Fizz"]
+// console.log(fizzBuzz(15)); // 输出 ["1", "2", "Fizz", "4", "Buzz", "Fizz", "7", "8", "Fizz", "Buzz", "11", "Fizz", "13", "14", "FizzBuzz"]
+// console.log(fizzBuzz(5)); // 输出 ["1", "2", "Fizz", "4", "Buzz"]
+// console.log(fizzBuzz(3)); // 输出 ["1", "2", "Fizz"]
+
+let obj = [{
+    name: "John",
+    age: 30,
+    city: "New York"
+},
+{
+    name: "John1",
+    age: 301,
+    city: "New York1"
+    },
+    {
+        name: "John2",
+        age: 302,
+        city: "New York2"
+    }]
+function objectToArray(arr) {
+    const keys = Object.keys(arr[0]);
+    const value = arr.map(item => {
+        return keys.map(key => item[key]);
+    });
+    return [keys, ...value];
+}
+console.log(objectToArray(obj));
