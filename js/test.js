@@ -525,3 +525,96 @@ function objectToArray(arr) {
     return [keys, ...value];
 }
 console.log(objectToArray(obj));
+
+// 节流: 某段时间内触发一次
+function throttle(fn, wait) {
+    let time = null;
+
+    return function (...args) {
+        if (!time) {
+            time = setTimeout(() => {
+                fn.apply(this, args);
+                time = null;
+            }, wait);
+        }
+    }
+}
+
+function throttle(fn, wait) {
+    let lasttime = 0;
+    return function (...args) {
+        const now = Date.now();
+        if (now - lasttime >= wait) {
+            lasttime = now;
+            fn.apply(this, args);
+        }
+    }
+}
+
+// 某段时间触发最后一次叫防抖,如果多次触发,则重新计时
+function debounce(fn, wait) {
+    let time = null;
+    return function (...args) {
+        if (time) {
+            clearTimeout(time);
+        }
+        time = setTimeout(() => {
+            fn.apply(this, args);
+        }, wait);
+    }
+}
+
+// 创建XHR
+// const xhr = new XMLHttpRequest();
+// // 设置请求方法和URL
+// xhr.open('GET', 'https://api.example.com/data', true);
+// // 发送请求
+// xhr.send();
+// xhr.onreadystatechange = function () {
+//     if (xhr.readyState === 4) { // 请求完成
+//         if (xhr.status === 200) { // 成功
+//             console.log('Response:', xhr.responseText);
+//         } else {
+//             console.error('Error:', xhr.status, xhr.statusText);
+//         }
+//     }
+// };
+
+
+/**
+ * @param {string} num
+ * @param {number} k
+ * @return {string}
+ */
+var removeKdigits = function(num, k) {
+    let arr = num.split('');
+    let stack = [];
+
+    for (let i = 0; i < arr.length; i++) { 
+        for (let j = i; j < arr.length; j++) {
+            if (arr[j] < arr[i]) {
+                let temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+    if(arr.length <= k) {
+        return '0';
+    }
+
+    if(arr[0] === '0') {
+        let index = 0;
+        while (index < arr.length && arr[index] === '0') {
+            index++;
+        }
+        arr = arr.slice(index);
+    }
+    stack = arr.slice(0, arr.length - k);
+
+    // 数组转字符串
+    let str = stack.join('');
+    return str
+};
+
+console.log(removeKdigits("1432219", 3))
