@@ -502,67 +502,67 @@
 // console.log(fizzBuzz(5)); // 输出 ["1", "2", "Fizz", "4", "Buzz"]
 // console.log(fizzBuzz(3)); // 输出 ["1", "2", "Fizz"]
 
-let obj = [{
-    name: "John",
-    age: 30,
-    city: "New York"
-},
-{
-    name: "John1",
-    age: 301,
-    city: "New York1"
-    },
-    {
-        name: "John2",
-        age: 302,
-        city: "New York2"
-    }]
-function objectToArray(arr) {
-    const keys = Object.keys(arr[0]);
-    const value = arr.map(item => {
-        return keys.map(key => item[key]);
-    });
-    return [keys, ...value];
-}
-console.log(objectToArray(obj));
+// let obj = [{
+//     name: "John",
+//     age: 30,
+//     city: "New York"
+// },
+// {
+//     name: "John1",
+//     age: 301,
+//     city: "New York1"
+//     },
+//     {
+//         name: "John2",
+//         age: 302,
+//         city: "New York2"
+//     }]
+// function objectToArray(arr) {
+//     const keys = Object.keys(arr[0]);
+//     const value = arr.map(item => {
+//         return keys.map(key => item[key]);
+//     });
+//     return [keys, ...value];
+// }
+// console.log(objectToArray(obj));
 
-// 节流: 某段时间内触发一次
-function throttle(fn, wait) {
-    let time = null;
+// // 节流: 某段时间内触发一次
+// function throttle(fn, wait) {
+//     let time = null;
 
-    return function (...args) {
-        if (!time) {
-            time = setTimeout(() => {
-                fn.apply(this, args);
-                time = null;
-            }, wait);
-        }
-    }
-}
+//     return function (...args) {
+//         if (!time) {
+//             time = setTimeout(() => {
+//                 fn.apply(this, args);
+//                 time = null;
+//             }, wait);
+//         }
+//     }
+// }
 
-function throttle(fn, wait) {
-    let lasttime = 0;
-    return function (...args) {
-        const now = Date.now();
-        if (now - lasttime >= wait) {
-            lasttime = now;
-            fn.apply(this, args);
-        }
-    }
-}
+// function throttle(fn, wait) {
+//     let lasttime = 0;
+//     return function (...args) {
+//         const now = Date.now();
+//         if (now - lasttime >= wait) {
+//             lasttime = now;
+//             fn.apply(this, args);
+//         }
+//     }
+// }
 
-// 某段时间触发最后一次叫防抖,如果多次触发,则重新计时
-function debounce(fn, wait) {
-    let time = null;
-    return function (...args) {
-        if (time) {
-            clearTimeout(time);
-        }
-        time = setTimeout(() => {
-            fn.apply(this, args);
-        }, wait);
-    }
-}
+// // 某段时间触发最后一次叫防抖,如果多次触发,则重新计时
+// function debounce(fn, wait) {
+//     let time = null;
+//     return function (...args) {
+//         if (time) {
+//             clearTimeout(time);
+//         }
+//         time = setTimeout(() => {
+//             fn.apply(this, args);
+//         }, wait);
+//     }
+// }
 
 // 创建XHR
 // const xhr = new XMLHttpRequest();
@@ -586,35 +586,50 @@ function debounce(fn, wait) {
  * @param {number} k
  * @return {string}
  */
-var removeKdigits = function(num, k) {
-    let arr = num.split('');
-    let stack = [];
+// var removeKdigits = function(num, k) {
+//     let arr = num.split('');
+//     let stack = [];
 
-    for (let i = 0; i < arr.length; i++) { 
-        for (let j = i; j < arr.length; j++) {
-            if (arr[j] < arr[i]) {
-                let temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
-    }
-    if(arr.length <= k) {
-        return '0';
-    }
+//     for (let i = 0; i < arr.length; i++) { 
+//         for (let j = i; j < arr.length; j++) {
+//             if (arr[j] < arr[i]) {
+//                 let temp = arr[i];
+//                 arr[i] = arr[j];
+//                 arr[j] = temp;
+//             }
+//         }
+//     }
+//     if(arr.length <= k) {
+//         return '0';
+//     }
 
-    if(arr[0] === '0') {
-        let index = 0;
-        while (index < arr.length && arr[index] === '0') {
-            index++;
-        }
-        arr = arr.slice(index);
-    }
-    stack = arr.slice(0, arr.length - k);
+//     if(arr[0] === '0') {
+//         let index = 0;
+//         while (index < arr.length && arr[index] === '0') {
+//             index++;
+//         }
+//         arr = arr.slice(index);
+//     }
+//     stack = arr.slice(0, arr.length - k);
 
-    // 数组转字符串
-    let str = stack.join('');
-    return str
-};
+//     // 数组转字符串
+//     let str = stack.join('');
+//     return str
+// };
 
-console.log(removeKdigits("1432219", 3))
+// console.log(removeKdigits("1432219", 3))
+
+console.log(1);
+setTimeout(() => {
+    console.log(2);
+})
+new Promise(() => { console.log(3) })
+new Promise((resolve) => {
+    console.log(4);
+}).then(() => {
+    console.log(5);
+})
+setTimeout(() => {
+    console.log(6);
+})
+console.log(7);
