@@ -619,17 +619,51 @@
 
 // console.log(removeKdigits("1432219", 3))
 
-console.log(1);
-setTimeout(() => {
-    console.log(2);
-})
-new Promise(() => { console.log(3) })
-new Promise((resolve) => {
-    console.log(4);
-}).then(() => {
-    console.log(5);
-})
-setTimeout(() => {
-    console.log(6);
-})
-console.log(7);
+// console.log(1);
+// setTimeout(() => {
+//     console.log(2);
+// })
+// new Promise(() => { console.log(3) })
+// new Promise((resolve) => {
+//     console.log(4);
+// }).then(() => {
+//     console.log(5);
+// })
+// setTimeout(() => {
+//     console.log(6);
+// })
+// console.log(7);
+
+// function test(nums = [1, 2, 3]) {
+//     let a = nums;
+//     let b = nums.push(4);
+//     console.log(a, b)
+// }
+
+// test()
+
+const target = {
+    field1: 1,
+    field2: undefined,
+    field3: 'ConardLi',
+    field4: {
+        child: 'child',
+        child2: {
+            child2: 'child2'
+        }
+    }
+};
+
+function deepclone(obj) { 
+    let result = {}
+    for (let key in obj) {
+        if (typeof obj[key] === 'object' && obj[key] !== null) {
+            result[key] = deepclone(obj[key])
+        } else {
+            result[key] = obj[key]
+        }
+    }
+    return result
+}
+
+console.log(deepclone(target))
